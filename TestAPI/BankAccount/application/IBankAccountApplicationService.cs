@@ -1,14 +1,14 @@
 ﻿
-namespace Account.Application
+namespace BankAccount.Application
 {
-    using Account.Application.Dto;
+    using BankAccount.Application.Dto;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
 
-    public interface IAccountApplicationService
+    public interface IBankAccountApplicationService
     {
         void create(BankAccountDto bankAccountDto);
         void update(BankAccountDto bankAccountDto);

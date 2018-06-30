@@ -1,4 +1,4 @@
-namespace Account.Application.Dto
+namespace BankAccount.Application.Dto
 {
 
     using Customer.Application.Dto;

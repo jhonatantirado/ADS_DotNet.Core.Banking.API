@@ -5,7 +5,7 @@ namespace Customer.Domain.Repository
 
     public interface ICustomerRepository: IBaseRepository<Customer>
     {
-        //void Delete(Cus)
+        void delete(int Id);
     }
 
 }

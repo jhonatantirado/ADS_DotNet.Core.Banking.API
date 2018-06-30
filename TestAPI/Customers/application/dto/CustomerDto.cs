@@ -3,7 +3,7 @@ namespace Customer.Application.Dto
 using Common.Application.Dto;
 using Common.Application.Enumeration;
 using System.Collections.Generic;
-using Account.Application.Dto;
+using BankAccount.Application.Dto;
 
 public class CustomerDto: RequestBaseDto {
 

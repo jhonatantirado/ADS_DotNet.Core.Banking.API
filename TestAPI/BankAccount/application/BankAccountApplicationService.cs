@@ -1,4 +1,4 @@
-﻿namespace Account.Application
+﻿namespace BankAccount.Application
 {
 
     using AutoMapper;
@@ -6,14 +6,14 @@
     using System;
     using BankAccount.Domain.Entity;
     using Common.Application;
-    using Account.Application.Dto;
+    using BankAccount.Application.Dto;
 
-    public class AccountApplicationService : IAccountApplicationService
+    public class BankAccountApplicationService : IBankAccountApplicationService
     {
         private readonly IUnitOfWork _iUnitOfWork;
         private readonly IMapper _mapper;
 
-        public AccountApplicationService(IUnitOfWork iUnitOfWork, IMapper mapper)
+        public BankAccountApplicationService(IUnitOfWork iUnitOfWork, IMapper mapper)
         {
             _iUnitOfWork = iUnitOfWork;
             _mapper = mapper;
@@ -51,19 +51,6 @@
 
         public void lockAccount(int Id)
         {
-            //Notification notification = this.validation(bankAccountDto);
-            //if (notification.hasErrors())
-            //{
-            //    throw new ArgumentException(notification.errorMessage());
-            //}
-
-            //BankAccount bankAccount = _mapper.Map<BankAccount>(bankAccountDto);
-            //notification = bankAccount.validateSaveBankAccount();
-            //if (notification.hasErrors())
-            //{
-            //    throw new ArgumentException(notification.errorMessage());
-            //}
-            //bankAccount.
             _iUnitOfWork.BankAccounts.lockAccount(Id);
             _iUnitOfWork.Complete();
         }

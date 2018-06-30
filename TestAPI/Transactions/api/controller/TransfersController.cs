@@ -9,25 +9,24 @@ using Common.Infrastructure.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Transactions.Application.Dto;
 using Transactions.Application;
-using Account.Application.Dto;
+using BankAccount.Application.Dto;
 
 namespace Transactions.Api
 {
     [Route("api/[controller]")]
-    public class BankTransferController 
+    public class TransfersController 
     {
         ITransactionApplicationService _transactionApplicationService;
         ResponseHandler responseHandler;
        
-        public BankTransferController(ITransactionApplicationService transactionApplicationService )
+        public TransfersController(ITransactionApplicationService transactionApplicationService )
         {
             _transactionApplicationService = transactionApplicationService;
             responseHandler = new ResponseHandler();
         }
 
-        [HttpPost]
-        [Route("transfers")]
-        public ResponseDto performCreate([FromBody] RequestBankTransferDto requestBankTransferDto)
+        [HttpPost]     
+        public ResponseDto Post([FromBody] RequestBankTransferDto requestBankTransferDto)
         {
             try
             {

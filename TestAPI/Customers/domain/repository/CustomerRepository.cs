@@ -16,6 +16,11 @@ namespace Customer.Domain.Repository
         {
         }
 
-
+        public void delete(int Id)
+        {
+            var customer = base.GetById(Id);
+            customer.IsActive = false;
+            base.Update(customer);
+        }
     }
 }

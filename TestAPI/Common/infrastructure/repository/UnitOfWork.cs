@@ -14,7 +14,7 @@ namespace Common.infrastructure.repository
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.EntityFrameworkCore;
-    using Account.Domain.Repository;
+    using BankAccount.Domain.Repository;
     using Transactions.Infraestructure;
 
 

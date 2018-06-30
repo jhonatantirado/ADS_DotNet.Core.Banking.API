@@ -1,7 +1,7 @@
 ﻿
 namespace Common.Infrastructure.Repository
 {
-    using Account.Domain.Repository;
+    using BankAccount.Domain.Repository;
     using Customer.Domain.Repository;
     using System;
     using System.Collections.Generic;

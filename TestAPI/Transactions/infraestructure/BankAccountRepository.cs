@@ -3,7 +3,7 @@
 namespace Transactions.Infraestructure
 {
     using Common.Infrastructure.Repository;
-    using Account.Domain.Repository;
+    using BankAccount.Domain.Repository;
     using BankAccount.Domain.Entity;
     using System;
     using System.Collections.Generic;

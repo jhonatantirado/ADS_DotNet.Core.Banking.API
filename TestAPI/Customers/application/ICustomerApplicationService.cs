@@ -13,6 +13,8 @@ namespace Customer.Application
     public interface ICustomerApplicationService 
     {
         void create(CustomerDto customerDto);
+        void update(CustomerDto customerDto);
+        void deleted(int Id);
     }
 }
 

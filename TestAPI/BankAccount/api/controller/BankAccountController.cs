@@ -1,23 +1,23 @@
 
-namespace Account.Api
+namespace BankAccount.Api
 {
     using System;
     using Microsoft.AspNetCore.Mvc;
-    using Account.Application.Dto;
+    using BankAccount.Application.Dto;
     using Common.Application.Dto;
     using Common.Api.Controller;
-    using Account.Application;
+    using BankAccount.Application;
 
 
     [Route("api/[controller]")]
-    public class AccountController
+    public class BankAccountController
     {
-        IAccountApplicationService _accountApplicationService;
+        IBankAccountApplicationService _bankAccountApplicationService;
         ResponseHandler responseHandler;
 
-        public AccountController(IAccountApplicationService accountApplicationService)
+        public BankAccountController(IBankAccountApplicationService bankAccountApplicationService)
         {
-            _accountApplicationService = accountApplicationService;
+            _bankAccountApplicationService = bankAccountApplicationService;
             responseHandler = new ResponseHandler();
         }
 
@@ -27,13 +27,12 @@ namespace Account.Api
             return "Hola Mundo";
         }
 
-
         [HttpPost]
         public ResponseDto Post([FromBody] BankAccountDto bankAccountDto)
         {
             try
             {
-                _accountApplicationService.create(bankAccountDto);
+                _bankAccountApplicationService.create(bankAccountDto);
                 return this.responseHandler.getOkCommandResponse("Bank Account created!");
             }
             catch (ArgumentException ex)
@@ -51,8 +50,8 @@ namespace Account.Api
         {
             try
             {
-                _accountApplicationService.update(bankAccountDto);
-                return this.responseHandler.getOkCommandResponse("Bank Account created!");
+                _bankAccountApplicationService.update(bankAccountDto);
+                return this.responseHandler.getOkCommandResponse("Bank Account updated!");
             }
             catch (ArgumentException ex)
             {
@@ -69,8 +68,8 @@ namespace Account.Api
         {
             try
             {
-                _accountApplicationService.lockAccount(Id);
-                return this.responseHandler.getOkCommandResponse("Bank Account created!");
+                _bankAccountApplicationService.lockAccount(Id);
+                return this.responseHandler.getOkCommandResponse("Bank Account deleted!");
             }
             catch (ArgumentException ex)
             {

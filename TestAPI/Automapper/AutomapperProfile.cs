@@ -9,7 +9,7 @@ namespace Automapper
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Account.Application.Dto;
+    using BankAccount.Application.Dto;
     using BankAccount.Domain.Entity;
     public class AutomapperProfile : Profile
     {

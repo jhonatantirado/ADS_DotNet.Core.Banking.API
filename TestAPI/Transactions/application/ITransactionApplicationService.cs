@@ -13,7 +13,7 @@ namespace Transactions.Application
     using Transactions.Application.Dto;
     using Transactions.Domain.Service;
     using Transactions.Infraestructure;
-    using Account.Application.Dto;
+    using BankAccount.Application.Dto;
 
     public interface ITransactionApplicationService
     {

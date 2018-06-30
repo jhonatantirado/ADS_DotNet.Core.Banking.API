@@ -1,6 +1,6 @@
 ﻿
 
-namespace Account.Domain.Repository
+namespace BankAccount.Domain.Repository
 {
     using BankAccount.Domain.Entity;
     using System;

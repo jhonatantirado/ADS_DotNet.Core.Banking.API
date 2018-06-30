@@ -24,8 +24,8 @@ namespace TestAPI
     using Transactions.application;
     using Transactions.Application;
     using Transactions.Infraestructure;
-    using Account.Domain.Repository;
-    using Account.Application;
+    using BankAccount.Domain.Repository;
+    using BankAccount.Application;
 
     public class Startup
     {
@@ -41,7 +41,7 @@ namespace TestAPI
         {
             services.AddDbContext<BankingContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));                        
             services.AddScoped<ICustomerApplicationService, CustomerApplicationService>();
-            services.AddScoped<IAccountApplicationService,AccountApplicationService>();
+            services.AddScoped<IBankAccountApplicationService,BankAccountApplicationService>();
             services.AddScoped<ITransactionApplicationService, TransactionApplicationService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();

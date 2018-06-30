@@ -41,15 +41,41 @@ namespace Customer.Api
             }
         }
 
-        //[HttpGet]
-        //public CustomerDto Get([FromBody] CustomerDto customerDto)
-        //{
-        //    //CustomerDto customerDto = new CustomerDto();
-        //    customerDto.setFirstName("CCC");
-        //    customerDto.setLastName("DDD");
-        //    return customerDto;
-        //    //return "Hola Mundo";
-        //}
+        [HttpPut]
+        public ResponseDto Put([FromBody] CustomerDto customerDto)
+        {
+            try
+            {
+                _customerApplicationService.update( customerDto);
+                return this.responseHandler.getOkCommandResponse("Customer updated!");
+            }
+            catch (ArgumentException ex)
+            {
+                return this.responseHandler.getAppCustomErrorResponse(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return this.responseHandler.getAppExceptionResponse();
+            }
+        }
+
+        [HttpDelete]
+        public ResponseDto Delete(int Id)
+        {
+            try
+            {
+              _customerApplicationService.deleted(Id);
+                return this.responseHandler.getOkCommandResponse("Bank Account deleted!");
+            }
+            catch (ArgumentException ex)
+            {
+                return this.responseHandler.getAppCustomErrorResponse(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return this.responseHandler.getAppExceptionResponse();
+            }
+        }
     }
 }
 

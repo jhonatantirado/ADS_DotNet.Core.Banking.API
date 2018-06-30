@@ -14,11 +14,11 @@ namespace Common.Infrastructure.Repository
 
         void Add(T entity);
 
-        void Remove(T entity);
+        void Remove(int Id);
 
         void Update(T entity);
 
-        void Delete(T entity);
+        //void Delete(T entity);
 
     }
 }
