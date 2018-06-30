@@ -7,15 +7,10 @@ namespace Transactions.application
     using Common.Application.Enumeration;
     using Common.Infrastructure.Repository;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Transactions.Application.Dto;
     using Transactions.Domain.Service;
-    using Transactions.Infraestructure;
     using Transactions.Application;
-    using Account.Domain.Repository;
-    using Account.Application.Dto;
+
 
     public class TransactionApplicationService : ITransactionApplicationService
     {
@@ -29,19 +24,6 @@ namespace Transactions.application
             _iUnitOfWork = iUnitOfWork;
             _mapper = mapper;
         }
-
-        //public void create(BankAccountDto bankAccountDto)
-        //{
-        //    BankAccount bankAccount = _mapper.Map<BankAccount>(bankAccountDto);            
-        //    Notification notification = bankAccount.validateNewBankAccount();
-        //    if (notification.hasErrors())
-        //    {
-        //        throw new ArgumentException(notification.errorMessage());
-        //    }
-
-        //    _iUnitOfWork.BankAccounts.Add(bankAccount);
-        //    _iUnitOfWork.Complete();
-        //}
 
         public void performCreate(RequestBankTransferDto requestBankTransferDto)
         {

@@ -44,49 +44,6 @@ namespace Transactions.Api
             }
         }
 
-        //[HttpPost]
-        //public ResponseDto Post([FromBody] BankAccountDto bankAccountDto)
-        //{
-        //    try
-        //    {
-        //        _transactionApplicationService.create(bankAccountDto);
-        //        return this.responseHandler.getOkCommandResponse("Bank Account created!");
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        return this.responseHandler.getAppCustomErrorResponse(ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return this.responseHandler.getAppExceptionResponse();
-        //    }
-        //}
-
-
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET api/<controller>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-
-        //// PUT api/<controller>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE api/<controller>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        
     }
 }

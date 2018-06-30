@@ -7,7 +7,7 @@ namespace Account.Api
     using Common.Application.Dto;
     using Common.Api.Controller;
     using Account.Application;
-    using Customer.Application.Dto;
+
 
     [Route("api/[controller]")]
     public class AccountController
@@ -24,18 +24,9 @@ namespace Account.Api
         [HttpGet]
         public string Get()
         {
-         return "Hola Mundo";
+            return "Hola Mundo";
         }
 
-        //[HttpGet]
-        //public CustomerDto Get([FromBody] CustomerDto customerDto)
-        //{
-        //    //CustomerDto customerDto = new CustomerDto();
-        //    customerDto.FirstName = "CCC";
-        //    customerDto.LastName =  "DDD";
-        //    return customerDto;
-        //    //return "Hola Mundo";
-        //}
 
         [HttpPost]
         public ResponseDto Post([FromBody] BankAccountDto bankAccountDto)
