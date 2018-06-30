@@ -1,4 +1,4 @@
-﻿namespace Transactions.application.dto
+﻿namespace Transactions.Application.Dto
 {
     using Common.Application.Dto;
     using Common.Application.Enumeration;
@@ -22,35 +22,35 @@
             this.requestBodyType = requestBodyType;
         }
 
-        public string getFromAccountNumber()
-        {
-            return fromAccountNumber;
-        }
+        //public string getFromAccountNumber()
+        //{
+        //    return fromAccountNumber;
+        //}
 
-        public void setFromAccountNumber(string fromAccountNumber)
-        {
-            this.fromAccountNumber = fromAccountNumber;
-        }
+        //public void setFromAccountNumber(string fromAccountNumber)
+        //{
+        //    this.fromAccountNumber = fromAccountNumber;
+        //}
 
-        public string getToAccountNumber()
-        {
-            return toAccountNumber;
-        }
+        //public string getToAccountNumber()
+        //{
+        //    return toAccountNumber;
+        //}
 
-        public void setToAccountNumber(string toAccountNumber)
-        {
-            this.toAccountNumber = toAccountNumber;
-        }
+        //public void setToAccountNumber(string toAccountNumber)
+        //{
+        //    this.toAccountNumber = toAccountNumber;
+        //}
 
-        public decimal getAmount()
-        {
-            return amount;
-        }
+        //public decimal getAmount()
+        //{
+        //    return amount;
+        //}
 
-        public void setAmount(decimal amount)
-        {
-            this.amount = amount;
-        }
+        //public void setAmount(decimal amount)
+        //{
+        //    this.amount = amount;
+        //}
 
     }
 }

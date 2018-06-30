@@ -8,30 +8,27 @@ namespace Customer.Api
     using System;
     using Microsoft.AspNetCore.Mvc;
     using AutoMapper;
-    using Common.infrastructure.repository;
+    using Common.Infrastructure.Repository;
 
     [Route("api/[controller]")]
     public class CustomerController
     {
 
-        CustomerApplicationService customerApplicationService;
+        ICustomerApplicationService _customerApplicationService;
         ResponseHandler responseHandler;
-        private readonly IMapper _mapper;
 
-        public CustomerController(BankingContext dbContext, IMapper mapper)
+        public CustomerController(ICustomerApplicationService customerApplicationService )
         {
-            customerApplicationService = new CustomerApplicationService(dbContext, mapper);
+            _customerApplicationService = customerApplicationService;
             responseHandler = new ResponseHandler();
-            _mapper = mapper;
         }
 
         [HttpPost]
-        [Route("performCreate")]
-        public ResponseDto performCreate([FromBody] CustomerDto customerDto)
+        public ResponseDto Post([FromBody] CustomerDto customerDto)
         {
             try
             {
-                customerApplicationService.performCreate(customerDto);
+                _customerApplicationService.create(customerDto);
                 return this.responseHandler.getOkCommandResponse("Customer created!");
             }
             catch (ArgumentException ex)

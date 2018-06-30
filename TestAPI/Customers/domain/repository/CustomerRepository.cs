@@ -1,7 +1,7 @@
 ﻿
-namespace Customers.domain.repository
+namespace Customer.Domain.Repository
 {
-    using Common.infrastructure.repository;
+    using Common.Infrastructure.Repository;
     using Customer.Domain.Entity;
     using Customer.Domain.Repository;
     using System;

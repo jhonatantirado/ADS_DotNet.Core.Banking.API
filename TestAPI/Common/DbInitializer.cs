@@ -3,11 +3,11 @@ namespace Common
 {
     using BankAccount.Domain.Entity;
     using Customer.Domain.Entity;
-    using Common.infrastructure.repository;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Common.Infrastructure.Repository;
 
     public class DbInitializer
     {

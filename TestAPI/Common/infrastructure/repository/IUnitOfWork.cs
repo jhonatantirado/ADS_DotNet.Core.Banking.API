@@ -1,15 +1,15 @@
 ﻿
-namespace Common.infrastructure.repository
+namespace Common.Infrastructure.Repository
 {
-    using Accounts.domain.repository;
-        using Customer.Domain.Repository;
+    using Account.Domain.Repository;
+    using Customer.Domain.Repository;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
 
-    interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         ICustomerRepository Customers { get; }
         IBankAccountRepository BankAccounts { get; }

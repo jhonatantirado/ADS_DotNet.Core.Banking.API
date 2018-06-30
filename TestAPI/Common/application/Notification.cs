@@ -4,6 +4,7 @@ namespace Common.Application{
     using System.Linq;
     public class Notification {
         private List<Error> errors = new List<Error>();
+        //public List<Error> errors = new List<Error>();
 
         public void addError(String message) {
             addError(message, null);
@@ -13,8 +14,8 @@ namespace Common.Application{
             errors.Add(new Error(message, e));
         }
 
-        public String errorMessage() {
-            return String.Join(", ", errors.Select(t => t.getMessage()));
+        public string errorMessage() {
+            return string.Join(", ", errors.Select(t => t.message));
         }
 
         public bool hasErrors() {

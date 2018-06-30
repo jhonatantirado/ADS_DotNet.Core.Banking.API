@@ -5,25 +5,24 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Common.Api.Controller;
 using Common.Application.Dto;
-using Common.infrastructure.repository;
+using Common.Infrastructure.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Transactions.application;
-using Transactions.application.dto;
+using Transactions.Application.Dto;
+using Transactions.Application;
+using Account.Application.Dto;
 
-namespace Transactions.api
+namespace Transactions.Api
 {
     [Route("api/[controller]")]
-    public class BankTransferController //: Controller
+    public class BankTransferController 
     {
-        TransactionApplicationService transactionApplicationService;
+        ITransactionApplicationService _transactionApplicationService;
         ResponseHandler responseHandler;
-        private readonly IMapper _mapper;
-
-        public BankTransferController(BankingContext dbContext, IMapper mapper)
+       
+        public BankTransferController(ITransactionApplicationService transactionApplicationService )
         {
-            transactionApplicationService = new TransactionApplicationService(dbContext, mapper);
+            _transactionApplicationService = transactionApplicationService;
             responseHandler = new ResponseHandler();
-            _mapper = mapper;
         }
 
         [HttpPost]
@@ -32,7 +31,7 @@ namespace Transactions.api
         {
             try
             {
-                transactionApplicationService.performCreate(requestBankTransferDto);
+                _transactionApplicationService.performCreate(requestBankTransferDto);
                 return this.responseHandler.getOkCommandResponse("Transfer done!");
             }
             catch (ArgumentException ex)
@@ -44,6 +43,25 @@ namespace Transactions.api
                 return this.responseHandler.getAppExceptionResponse();
             }
         }
+
+        //[HttpPost]
+        //public ResponseDto Post([FromBody] BankAccountDto bankAccountDto)
+        //{
+        //    try
+        //    {
+        //        _transactionApplicationService.create(bankAccountDto);
+        //        return this.responseHandler.getOkCommandResponse("Bank Account created!");
+        //    }
+        //    catch (ArgumentException ex)
+        //    {
+        //        return this.responseHandler.getAppCustomErrorResponse(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return this.responseHandler.getAppExceptionResponse();
+        //    }
+        //}
+
 
         //[HttpGet]
         //public IEnumerable<string> Get()
@@ -58,11 +76,6 @@ namespace Transactions.api
         //    return "value";
         //}
 
-        //// POST api/<controller>
-        //[HttpPost]
-        //public void Post([FromBody]string value)
-        //{
-        //}
 
         //// PUT api/<controller>/5
         //[HttpPut("{id}")]

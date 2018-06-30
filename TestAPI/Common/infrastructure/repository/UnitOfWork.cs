@@ -3,7 +3,7 @@
 namespace Common.infrastructure.repository
 {
     using Customer.Domain.Repository;
-    using Common.infrastructure.repository;
+    using Common.Infrastructure.Repository;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -14,35 +14,37 @@ namespace Common.infrastructure.repository
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.EntityFrameworkCore;
-    using Accounts.domain.repository;
+    using Account.Domain.Repository;
+    using Transactions.Infraestructure;
 
-    public class UnitOfWork // : IUnitOfWork
+
+    public class UnitOfWork  : IUnitOfWork
     {
-        protected readonly BankingContext Context;
-        
+        protected readonly BankingContext _context;
+
         public UnitOfWork(BankingContext dbContext)
         {
-            Context = dbContext;
-            //Customers = new CustomerRepository(_context);
-            //BankAccounts = new BankAccountRepository(_context);
+            _context = dbContext;
+            Customers = new CustomerRepository(_context);
+            BankAccounts = new BankAccountRepository(_context);
         }
 
-        //public ICustomerRepository Customers { get; private set; }
-        //public IBankAccountRepository BankAccounts { get; private set; }
+        public ICustomerRepository Customers { get; private set; }
+        public IBankAccountRepository BankAccounts { get; private set; }
 
-        public BaseRepository<T> getRepoInstance<T>() where T : class
-        {
-            return new BaseRepository<T>(Context);
-        }
+        //public BaseRepository<T> getRepoInstance<T>() where T : class
+        //{
+        //    return new BaseRepository<T>(Context);
+        //}
 
         public int Complete()
         {
-            return Context.SaveChanges();
+            return _context.SaveChanges();
         }
 
         public void Dispose()
         {
-            Context.Dispose();
+            _context.Dispose();
         }
 
 

@@ -1,9 +1,9 @@
 ﻿
 
-namespace Transactions.infraestructure
+namespace Transactions.Infraestructure
 {
-    using Common.infrastructure.repository;
-    using Accounts.domain.repository;
+    using Common.Infrastructure.Repository;
+    using Account.Domain.Repository;
     using BankAccount.Domain.Entity;
     using System;
     using System.Collections.Generic;
@@ -13,32 +13,30 @@ namespace Transactions.infraestructure
 
     public class BankAccountRepository : BaseRepository<BankAccount>  , IBankAccountRepository
     {
-        public new readonly BankingContext Context;
         public BankAccountRepository(BankingContext dbContext ) : base(dbContext)
         {
-            Context = dbContext;
         }
 
         public BankAccount findByNumber(string accountNumber)
         {
-            //return Context.Set<BankAccount>().Find(accountNumber);
-            return Context.Set<BankAccount>().Where(x => x.Number == accountNumber).FirstOrDefault();
+            return base.Context.Set<BankAccount>().Where(x => x.Number == accountNumber).FirstOrDefault();
         }
 
         public BankAccount findByNumberLocked(string accountNumber)
+        {   
+            return base.Context.Set<BankAccount>().Where(x => x.Number == accountNumber).FirstOrDefault();
+        }
+
+        public void lockAccount(int Id)
         {
-            //Context.Customers.incl
-            //return Context.Set<BankAccount>().Include("Customer").Where(x => x.Number == accountNumber).FirstOrDefault();
-            return Context.Set<BankAccount>().Where(x => x.Number == accountNumber).FirstOrDefault();
+            var bankAccount = base.GetById(Id);
+            bankAccount.IsLocked = true;
+            base.Update(bankAccount);
         }
 
         public void save(BankAccount bankAccount)
         {
-            Context.BankAccounts.Update(bankAccount);
-            Context.SaveChanges();
-            //Context.Set<BankAccount>().Attach(bankAccount);
-            //Context.Entry<BankAccount>().State = EntityState.Modified;
-
+            base.Update(bankAccount);
         }
     }
 }

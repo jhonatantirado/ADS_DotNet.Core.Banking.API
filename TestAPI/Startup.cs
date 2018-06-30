@@ -13,13 +13,19 @@ namespace TestAPI
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
-    using Common.infrastructure.repository;
     using Microsoft.EntityFrameworkCore;
-    using Customer.Domain.Repository;
-    using Customers.domain.repository;
+    using Customer.Domain.Repository;    
     using AutoMapper;
     using Automapper;
     using Common;
+    using Common.Infrastructure.Repository;
+    using Common.infrastructure.repository;
+    using Customer.Application;
+    using Transactions.application;
+    using Transactions.Application;
+    using Transactions.Infraestructure;
+    using Account.Domain.Repository;
+    using Account.Application;
 
     public class Startup
     {
@@ -33,11 +39,14 @@ namespace TestAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<BankingContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
-            //services.AddScoped<IUnitOfWork, UnitOfWork>();
-            //services.AddAutoMapper();
-            //services.AddAutoMapper(typeof(Startup));
+            services.AddDbContext<BankingContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));                        
+            services.AddScoped<ICustomerApplicationService, CustomerApplicationService>();
+            services.AddScoped<IAccountApplicationService,AccountApplicationService>();
+            services.AddScoped<ITransactionApplicationService, TransactionApplicationService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IBankAccountRepository, BankAccountRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();            
+
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutomapperProfile());

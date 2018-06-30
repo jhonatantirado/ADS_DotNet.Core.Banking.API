@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Common.infrastructure.repository
+namespace Common.Infrastructure.Repository
 {
     public interface IBaseRepository<T>
     {
@@ -18,12 +18,7 @@ namespace Common.infrastructure.repository
 
         void Update(T entity);
 
-        void SaveORUpdate(T entity);
+        void Delete(T entity);
 
-        //public void persist(T entity);
-        //public void save(T entity);
-        //public void update(T entity);
-        //public void merge(T entity);
-        //public void saveOrUpdate(T entity);
     }
 }

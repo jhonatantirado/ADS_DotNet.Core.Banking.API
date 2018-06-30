@@ -1,6 +1,6 @@
 ﻿
 
-namespace Common.infrastructure.repository
+namespace Common.Infrastructure.Repository
 {
     using Customer.Domain.Entity;
     using BankAccount.Domain.Entity;

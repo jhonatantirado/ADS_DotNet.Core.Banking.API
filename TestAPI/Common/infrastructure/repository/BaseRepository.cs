@@ -5,12 +5,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Common.infrastructure.repository
+namespace Common.Infrastructure.Repository
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         DbSet<T> _dbSet;
         /*Probar luego cambianfo a DbContext como un parametro general*/
+        //protected readonly BankingContext Context;
         protected readonly BankingContext Context;
 
         public BaseRepository(BankingContext context)
@@ -51,22 +52,16 @@ namespace Common.infrastructure.repository
                 _dbSet.Attach(entity);
                 _dbSet.Remove(entity);
             }
-            //Context.Set<T>().Remove(entity);
-        }
-
-        public void SaveORUpdate(T entity)
-        {
-            
         }
 
         public void Update(T entity)
         {
-            _dbSet.Attach(entity);
-            Context.Entry(entity).State = EntityState.Modified;
-            //Context.Set<T>().Attach(entity);
-            //Context.Entry<T>().State = EntityState.Modified;
+            _dbSet.Update(entity);
         }
 
-      
+        public void Delete(T entity)
+        {
+            _dbSet.Update(entity);
+        }
     }
 }
