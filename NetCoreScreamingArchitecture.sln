@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreBankingWebAPI", "Net
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAPI", "TestAPI\TestAPI.csproj", "{C29B88F3-9E9E-4335-B687-630C1BBA1832}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banking.Test", "Banking.Test\Banking.Test.csproj", "{AB9E6BF7-A415-4BA5-80C6-D56557378A44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{C29B88F3-9E9E-4335-B687-630C1BBA1832}.Release|x64.Build.0 = Release|Any CPU
 		{C29B88F3-9E9E-4335-B687-630C1BBA1832}.Release|x86.ActiveCfg = Release|Any CPU
 		{C29B88F3-9E9E-4335-B687-630C1BBA1832}.Release|x86.Build.0 = Release|Any CPU
+		{AB9E6BF7-A415-4BA5-80C6-D56557378A44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB9E6BF7-A415-4BA5-80C6-D56557378A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB9E6BF7-A415-4BA5-80C6-D56557378A44}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AB9E6BF7-A415-4BA5-80C6-D56557378A44}.Debug|x64.Build.0 = Debug|Any CPU
+		{AB9E6BF7-A415-4BA5-80C6-D56557378A44}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AB9E6BF7-A415-4BA5-80C6-D56557378A44}.Debug|x86.Build.0 = Debug|Any CPU
+		{AB9E6BF7-A415-4BA5-80C6-D56557378A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB9E6BF7-A415-4BA5-80C6-D56557378A44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB9E6BF7-A415-4BA5-80C6-D56557378A44}.Release|x64.ActiveCfg = Release|Any CPU
+		{AB9E6BF7-A415-4BA5-80C6-D56557378A44}.Release|x64.Build.0 = Release|Any CPU
+		{AB9E6BF7-A415-4BA5-80C6-D56557378A44}.Release|x86.ActiveCfg = Release|Any CPU
+		{AB9E6BF7-A415-4BA5-80C6-D56557378A44}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
