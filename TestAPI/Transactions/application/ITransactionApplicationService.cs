@@ -12,7 +12,7 @@ namespace Transactions.Application
     using System.Threading.Tasks;
     using Transactions.Application.Dto;
     using Transactions.Domain.Service;
-    using Transactions.Infraestructure;
+    //using Transactions.Infraestructure;
     using BankAccount.Application.Dto;
 
     public interface ITransactionApplicationService

@@ -2,6 +2,7 @@
 namespace BankAccount.Application
 {
     using BankAccount.Application.Dto;
+    using Common.Application.Dto;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -11,7 +12,10 @@ namespace BankAccount.Application
     public interface IBankAccountApplicationService
     {
         void create(BankAccountDto bankAccountDto);
-        void update(BankAccountDto bankAccountDto);
-        void lockAccount(int Id);
+        void update(BankAccountDto bankAccountDto, long AcccountId);
+        void lockAccount(long AcccountId);
+        GridDto getAll(int offset, int limit);
+        BankAccountDto getById(long CustomerId);
+
     }
 }

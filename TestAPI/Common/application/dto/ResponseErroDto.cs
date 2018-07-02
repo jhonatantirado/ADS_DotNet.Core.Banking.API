@@ -2,33 +2,21 @@
 namespace Common.Application.Dto
 {
     using System.Collections.Generic;
-    public class ResponseErrorDto {
-	private int httpStatus;
-	private List<ErrorDto> errors;
-	
-	public ResponseErrorDto() {
-	}
-	
-	public ResponseErrorDto(List<ErrorDto> errors) {
-		this.errors = errors;
-	}
-	
-	public int getHttpStatus() {
-		return httpStatus;
-	}
 
-	public void setHttpStatus(int httpStatus) {
-		this.httpStatus = httpStatus;
-	}
+    public class ResponseErrorDto
+    {
+        public int httpStatus { get; set; }
+        public List<ErrorDto> errors { get; set; }
 
-	public List<ErrorDto> getErrors() {
-		return errors;
-	}
+        public ResponseErrorDto()
+        {
+        }
 
-	public void setErrors(List<ErrorDto> errors) {
-		this.errors = errors;
-	}
-}
+        public ResponseErrorDto(List<ErrorDto> errors)
+        {
+            this.errors = errors;
+        }
+    }
 
 }
 

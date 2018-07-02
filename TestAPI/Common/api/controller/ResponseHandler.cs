@@ -7,9 +7,9 @@ public class ResponseHandler {
 	public ResponseDto getOkCommandResponse(string message) {
 		ResponseDto responseDto = new ResponseDto();
 		ResponseOkCommandDto responseOkCommandDto = new ResponseOkCommandDto();
-		responseOkCommandDto.setHttpStatus(StatusCodes.Status201Created);
-		responseOkCommandDto.setMessage(message);
-		responseDto.setResponse(responseOkCommandDto);
+		responseOkCommandDto.httpStatus = StatusCodes.Status201Created;
+		responseOkCommandDto.message =message;
+		responseDto.response = responseOkCommandDto;
 		return responseDto;
     }
 	
@@ -22,8 +22,8 @@ public class ResponseHandler {
             errorsDto.Add(new ErrorDto(error));
         }
         ResponseErrorDto responseErrorDto = new ResponseErrorDto(errorsDto);
-        responseErrorDto.setHttpStatus(StatusCodes.Status400BadRequest);
-        responseDto.setResponse(responseErrorDto);
+        responseErrorDto.httpStatus = StatusCodes.Status400BadRequest;
+        responseDto.response = responseErrorDto;
         return responseDto;
     }
 	
@@ -33,8 +33,8 @@ public class ResponseHandler {
 		List<ErrorDto> errorsDto = new List<ErrorDto>();
         errorsDto.Add(new ErrorDto("Server error"));
         ResponseErrorDto responseErrorDto = new ResponseErrorDto(errorsDto);
-        responseErrorDto.setHttpStatus(StatusCodes.Status500InternalServerError);
-        responseDto.setResponse(responseErrorDto);
+        responseErrorDto.httpStatus = StatusCodes.Status500InternalServerError;
+        responseDto.response = responseErrorDto;
         return responseDto;
     }
 }

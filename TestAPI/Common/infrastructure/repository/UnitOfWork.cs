@@ -15,7 +15,7 @@ namespace Common.infrastructure.repository
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.EntityFrameworkCore;
     using BankAccount.Domain.Repository;
-    using Transactions.Infraestructure;
+    //using Transactions.Infraestructure;
 
 
     public class UnitOfWork  : IUnitOfWork

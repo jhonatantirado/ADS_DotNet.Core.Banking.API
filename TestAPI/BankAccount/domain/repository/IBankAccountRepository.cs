@@ -13,7 +13,8 @@ namespace BankAccount.Domain.Repository
     {
         BankAccount findByNumber(string accountNumber);
         BankAccount findByNumberLocked(string accountNumber);
+        BankAccount findByOtherNumber(string accountNumber, long IdBankAccount);
         void save(BankAccount bankAccount);
-        void lockAccount(int Id);
+        void lockAccount(long Id);
     }
 }

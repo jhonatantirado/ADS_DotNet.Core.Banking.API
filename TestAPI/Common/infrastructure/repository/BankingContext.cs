@@ -22,12 +22,17 @@ namespace Common.Infrastructure.Repository
 
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<BankAccount> BankAccounts { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Customer>()
+                .Property(b => b.IsActive).HasDefaultValue(true);
+
             modelBuilder.Entity<Customer>()
                       .HasMany(c => c.BankAccounts)
-                      .WithOne(e => e.Customer  );
+                      .WithOne(e => e.Customer);
         }
 
     }

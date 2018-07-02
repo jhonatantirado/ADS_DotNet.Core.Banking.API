@@ -9,7 +9,8 @@ namespace BankAccount.Api
     using BankAccount.Application;
 
 
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("api/Accounts")]
     public class BankAccountController
     {
         IBankAccountApplicationService _bankAccountApplicationService;
@@ -21,10 +22,16 @@ namespace BankAccount.Api
             responseHandler = new ResponseHandler();
         }
 
-        [HttpGet]
-        public string Get()
+        [HttpGet("{AccountId}")]
+        public  BankAccountDto Get(long AccountId)
         {
-            return "Hola Mundo";
+            return _bankAccountApplicationService.getById(AccountId);
+        }
+
+        [HttpGet]
+        public GridDto Get(int offset, int limit)
+        {
+            return _bankAccountApplicationService.getAll(offset, limit);
         }
 
         [HttpPost]
@@ -32,6 +39,7 @@ namespace BankAccount.Api
         {
             try
             {
+                //return this.responseHandler.getAppCustomErrorResponse("Holaaaaaaaaaaaa");
                 _bankAccountApplicationService.create(bankAccountDto);
                 return this.responseHandler.getOkCommandResponse("Bank Account created!");
             }
@@ -45,12 +53,12 @@ namespace BankAccount.Api
             }
         }
 
-        [HttpPut]
-        public ResponseDto Put([FromBody] BankAccountDto bankAccountDto)
+        [HttpPut("{AcccountId}")]
+        public ResponseDto Put([FromBody] BankAccountDto bankAccountDto , long AcccountId)
         {
             try
             {
-                _bankAccountApplicationService.update(bankAccountDto);
+                _bankAccountApplicationService.update(bankAccountDto,AcccountId);
                 return this.responseHandler.getOkCommandResponse("Bank Account updated!");
             }
             catch (ArgumentException ex)
@@ -63,12 +71,12 @@ namespace BankAccount.Api
             }
         }
 
-        [HttpDelete]
-        public ResponseDto Delete(int Id)
+        [HttpDelete("{AcccountId}")]
+        public ResponseDto Delete(long AcccountId)
         {
             try
             {
-                _bankAccountApplicationService.lockAccount(Id);
+                _bankAccountApplicationService.lockAccount(AcccountId);
                 return this.responseHandler.getOkCommandResponse("Bank Account deleted!");
             }
             catch (ArgumentException ex)

@@ -6,25 +6,30 @@ namespace BankAccount.Domain.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Collections.Generic;
     using System.Linq;
+    using System.ComponentModel.DataAnnotations;
+
 
     [Table("bank_account")]
     public class BankAccount
     {
 
-        [Column("bank_account_id")]
-        public int Id { get; set; }
+        [Column("bank_account_id", TypeName = "BIGINT")]
+        public long Id { get; set; }
 
-        [Column("number")]
+        [Required]
+        [Column("number", TypeName = "VARCHAR(50)")]
         public string Number { get; set; }
 
-        [Column("balance")]
+        [Required]
+        [Column("balance", TypeName = "DECIMAL(10,2)")]
         public decimal? Balance { get; set; }
 
-        [Column("locked")]
+        [Required]
+        [Column("isLocked", TypeName = "BOOLEAN")]
         public bool IsLocked { get; set; }
 
-        [Column("customer_id")]
-        public int CustomerId { get; set; }
+        [Column("customer_id", TypeName = "BIGINT")]
+        public long CustomerId { get; set; }
 
 
         public virtual Customer Customer { get; set; }
@@ -138,7 +143,7 @@ namespace BankAccount.Domain.Entity
         {
             Notification notification = new Notification();
 
-            if ( this == null )
+            if (this == null)
             {
                 notification.addError("Invalid JSON data in request body.");
             }
@@ -148,7 +153,17 @@ namespace BankAccount.Domain.Entity
             }
             if (!this.Balance.HasValue)
             {
-                notification.addError("Balance Account is required.");
+                if (this.Balance <= 0)
+                {
+                    notification.addError("Balance Account is required.");
+                }
+            }
+            if (this.Balance.HasValue)
+            {
+                if (this.Balance <= 0)
+                {
+                    notification.addError("Balance Account is required.");
+                }
             }
             if (this.CustomerId == 0)
             {

@@ -1,24 +1,30 @@
-﻿using System;
+﻿using Common.infrastructure.repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Common.Infrastructure.Repository
 {
-    public interface IBaseRepository<T>
+    public interface IBaseRepository<T> where T:class
     {
         
         IEnumerable<T> GetAll();
 
-        T GetById(int id);
+        T GetById(long id);
+
+        //IQueryable<T> GetQueryable(long id);
 
         void Add(T entity);
 
-        void Remove(int Id);
+        void Remove(long Id);
 
         void Update(T entity);
 
-        //void Delete(T entity);
+        IEnumerable<T> GetAllWithPaginated(int pageNumber, int pageSize, string orderBy, string orderDirection);
+
+        int CountTotalRecords();
+
 
     }
 }

@@ -9,12 +9,16 @@ namespace Customer.Application
     using System;
     using Common.Infrastructure.Repository;
     using AutoMapper;
+    using System.Collections.Generic;
+    using Common.Application.Dto;
 
     public interface ICustomerApplicationService 
     {
         void create(CustomerDto customerDto);
-        void update(CustomerDto customerDto);
-        void deleted(int Id);
+        GridDto getAll(int offset, int limit);
+        CustomerDto getById(long CustomerId);
+        void update(CustomerDto customerDto , long CustomerId);
+        void deleted(long CustomerId);
     }
 }
 

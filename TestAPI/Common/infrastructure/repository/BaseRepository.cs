@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common.infrastructure.repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+
 
 namespace Common.Infrastructure.Repository
 {
@@ -16,13 +18,13 @@ namespace Common.Infrastructure.Repository
 
         public BaseRepository(BankingContext context)
         {
-            Context =  context ;
+            Context = context;
             _dbSet = context.Set<T>();
         }
 
         public virtual IEnumerable<T> List(Expression<Func<T, bool>> predicate)
         {
-            return  _dbSet
+            return _dbSet
                    .Where(predicate)
                    .AsEnumerable();
         }
@@ -39,13 +41,20 @@ namespace Common.Infrastructure.Repository
             return _dbSet.ToList();
         }
 
-        public T GetById(int id)
+        //public IQueryable<T> GetQueryable(long id)
+        //{
+        //    //return _dbSet.Find(id);
+        //    return _dbSet.Where(x => x.Id == id).AsQueryable();
+        //}
+
+        public T GetById(long id)
         {
-            return _dbSet.Find(id);
-            //return Context.Set<T>().Find(id);
+            //return _dbSet.Find(id);
+            return Context.Set<T>().Find(id);
+            //return _dbSet.Where(x => x.Id == id).AsQueryable();
         }
 
-        public void Remove(int Id)
+        public void Remove(long Id)
         {
             _dbSet.Remove(GetById(Id));
             //context.SaveChanges();
@@ -59,13 +68,29 @@ namespace Common.Infrastructure.Repository
 
         public void Update(T entity)
         {
+
             _dbSet.Update(entity);
+            //Context.Set<T>().Update(entity);
+            //_dbSet.Attach(entity);
+            //var entry = _dbSet.Entry(entity);
+            //Context.Entry(entity).State =EntityState.Modified;Context.Entry(entity).State =EntityState.Modified;
+            //_dbSet<T>.stat  db.Entry(dboriginalmodificada).State = System.Data.EntityState.Modified;
         }
 
-        //public void Delete(int Id)
-        //{
-        //    var entity = GetById(Id);            
-        //    _dbSet.Update(entity);
-        //}
+        public IEnumerable<T> GetAllWithPaginated(int pageNumber, int pageSize, string orderBy, string orderDirection)
+        {
+
+            var skip = (pageNumber - 1) * pageSize;
+            return Context.Set<T>()
+                .OrderBy(orderBy, orderDirection)
+                .Skip(skip)
+                .Take(pageSize);
+        }
+
+
+        public int CountTotalRecords()
+        {
+            return Context.Set<T>().Count();
+        }
     }
 }

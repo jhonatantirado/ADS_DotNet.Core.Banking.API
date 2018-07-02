@@ -3,10 +3,15 @@ namespace Customer.Domain.Repository
     using Customer.Domain.Entity;
     using Common.Infrastructure.Repository;
 
-    public interface ICustomerRepository: IBaseRepository<Customer>
+    public interface ICustomerRepository : IBaseRepository<Customer>
     {
-        void delete(int Id);
+        void delete(long CustomerId);
+        Customer findByOtherDocumentNumber(string documentNumber, long IdCustomer);
+        Customer findByOtherUserName(string user, long IdCustomer);
+
     }
+
+
 
 }
 

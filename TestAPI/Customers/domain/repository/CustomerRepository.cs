@@ -10,17 +10,27 @@ namespace Customer.Domain.Repository
     using System.Threading.Tasks;
 
 
-    public class CustomerRepository : BaseRepository<Customer> ,  ICustomerRepository
+    public class CustomerRepository : BaseRepository<Customer> ,  ICustomerRepository  
     {
         public CustomerRepository( BankingContext context): base( context)
         {
         }
 
-        public void delete(int Id)
+        public void delete(long CustomerId)
         {
-            var customer = base.GetById(Id);
+            var customer = base.GetById(CustomerId);
             customer.IsActive = false;
             base.Update(customer);
+        }
+
+        public Customer findByOtherDocumentNumber(string documentNumber, long IdCustomer)
+        {
+            return base.Context.Set<Customer>().Where(x => x.DocumentNumber == documentNumber && x.Id != IdCustomer).FirstOrDefault();
+        }
+
+        public Customer findByOtherUserName(string user, long IdCustomer)
+        {
+            return base.Context.Set<Customer>().Where(x => x.User== user && x.Id != IdCustomer).FirstOrDefault();
         }
     }
 }

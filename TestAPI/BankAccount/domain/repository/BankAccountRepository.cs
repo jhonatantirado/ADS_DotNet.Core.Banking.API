@@ -1,6 +1,6 @@
 ﻿
 
-namespace Transactions.Infraestructure
+namespace BankAccount.Domain.Repository
 {
     using Common.Infrastructure.Repository;
     using BankAccount.Domain.Repository;
@@ -11,9 +11,9 @@ namespace Transactions.Infraestructure
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
 
-    public class BankAccountRepository : BaseRepository<BankAccount>  , IBankAccountRepository
+    public class BankAccountRepository : BaseRepository<BankAccount>, IBankAccountRepository
     {
-        public BankAccountRepository(BankingContext dbContext ) : base(dbContext)
+        public BankAccountRepository(BankingContext dbContext) : base(dbContext)
         {
         }
 
@@ -23,11 +23,16 @@ namespace Transactions.Infraestructure
         }
 
         public BankAccount findByNumberLocked(string accountNumber)
-        {   
+        {
             return base.Context.Set<BankAccount>().Where(x => x.Number == accountNumber).FirstOrDefault();
         }
 
-        public void lockAccount(int Id)
+        public BankAccount findByOtherNumber(string accountNumber, long IdBankAccount)
+        {
+            return base.Context.Set<BankAccount>().Where(x => x.Number == accountNumber && x.Id != IdBankAccount).FirstOrDefault();
+        }
+
+        public void lockAccount(long Id)
         {
             var bankAccount = base.GetById(Id);
             bankAccount.IsLocked = true;

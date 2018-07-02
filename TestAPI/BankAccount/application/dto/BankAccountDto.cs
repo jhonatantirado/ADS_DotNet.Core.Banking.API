@@ -12,7 +12,6 @@ namespace BankAccount.Application.Dto
         public int CustomerId { get; set; }
         public virtual CustomerDto Customer { get; set; }
 
-
     }
 
 }

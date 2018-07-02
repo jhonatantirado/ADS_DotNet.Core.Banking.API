@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/BankAccount",
+      "launchUrl": "api/Accounts",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "TestAPI": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/BankAccount",
+      "launchUrl": "api/Accounts",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

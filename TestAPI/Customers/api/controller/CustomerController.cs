@@ -6,21 +6,34 @@ namespace Customer.Api
     using Common.Application.Dto;
     using Common.Api.Controller;
     using System;
-    using Microsoft.AspNetCore.Mvc;
-    using AutoMapper;
+    using Microsoft.AspNetCore.Mvc;    
     using Common.Infrastructure.Repository;
+    using System.Collections;
+    using System.Collections.Generic;
 
-    [Route("api/[controller]")]
+    [Route("api/Customers")]
     public class CustomerController
     {
 
         ICustomerApplicationService _customerApplicationService;
         ResponseHandler responseHandler;
 
-        public CustomerController(ICustomerApplicationService customerApplicationService )
+        public CustomerController(ICustomerApplicationService customerApplicationService)
         {
             _customerApplicationService = customerApplicationService;
             responseHandler = new ResponseHandler();
+        }
+
+        [HttpGet("{CustomerId}")]
+        public CustomerDto Get(long CustomerId)
+        {
+            return _customerApplicationService.getById(CustomerId);
+        }
+
+        [HttpGet]
+        public GridDto Get(int offset, int limit )
+        {
+            return _customerApplicationService.getAll(offset, limit);
         }
 
         [HttpPost]
@@ -41,12 +54,12 @@ namespace Customer.Api
             }
         }
 
-        [HttpPut]
-        public ResponseDto Put([FromBody] CustomerDto customerDto)
+        [HttpPut("{CustomerId}")]
+        public ResponseDto Put([FromBody] CustomerDto customerDto, long CustomerId)
         {
             try
             {
-                _customerApplicationService.update( customerDto);
+                _customerApplicationService.update(customerDto, CustomerId);
                 return this.responseHandler.getOkCommandResponse("Customer updated!");
             }
             catch (ArgumentException ex)
@@ -59,12 +72,12 @@ namespace Customer.Api
             }
         }
 
-        [HttpDelete]
-        public ResponseDto Delete(int Id)
+        [HttpDelete("{CustomerId}")]
+        public ResponseDto Delete(int CustomerId)
         {
             try
             {
-              _customerApplicationService.deleted(Id);
+                _customerApplicationService.deleted(CustomerId);
                 return this.responseHandler.getOkCommandResponse("Bank Account deleted!");
             }
             catch (ArgumentException ex)

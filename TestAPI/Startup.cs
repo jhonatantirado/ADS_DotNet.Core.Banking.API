@@ -23,7 +23,7 @@ namespace TestAPI
     using Customer.Application;
     using Transactions.application;
     using Transactions.Application;
-    using Transactions.Infraestructure;
+    //using Transactions.Infraestructure;
     using BankAccount.Domain.Repository;
     using BankAccount.Application;
 
