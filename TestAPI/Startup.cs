@@ -45,7 +45,8 @@ namespace TestAPI
             services.AddScoped<ITransactionApplicationService, TransactionApplicationService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();
-            services.AddScoped<ICustomerRepository, CustomerRepository>();            
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddCors();
 
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
@@ -58,8 +59,10 @@ namespace TestAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env , DbInitializer seeder)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env ,ILoggerFactory loggerFactory,  DbInitializer seeder)
         {
+            loggerFactory.AddConsole();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -68,6 +71,14 @@ namespace TestAPI
             {
                 app.UseHsts();
             }
+
+            // Shows UseCors with CorsPolicyBuilder.
+            app.UseCors(builder =>builder.WithOrigins("https://banking-client-persistent-squirrel.cfapps.io"));
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
 
             app.UseHttpsRedirection();
             app.UseMvc();
