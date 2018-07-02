@@ -39,7 +39,6 @@ namespace BankAccount.Api
         {
             try
             {
-                //return this.responseHandler.getAppCustomErrorResponse("Holaaaaaaaaaaaa");
                 _bankAccountApplicationService.create(bankAccountDto);
                 return this.responseHandler.getOkCommandResponse("Bank Account created!");
             }

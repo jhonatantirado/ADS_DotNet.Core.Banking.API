@@ -1,7 +1,7 @@
 namespace Common.Application.Dto
 {
     public class ErrorDto {
-        private string message;
+        public string message { get; set; }
         
         public ErrorDto() {
         }
@@ -10,13 +10,6 @@ namespace Common.Application.Dto
             this.message = message;
         }
 
-        public string getMessage() {
-            return message;
-        }
-
-        public void setMessage(string message) {
-            this.message = message;
-        }
     }
 }
 
