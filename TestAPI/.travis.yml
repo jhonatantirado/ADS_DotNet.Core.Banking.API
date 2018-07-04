@@ -1,0 +1,12 @@
+language: csharp
+mono: none
+dotnet: 2.1.0
+script:
+ - dotnet restore
+deploy:
+   provider: cloudfoundry
+   username: jhonatantiradotiradodeep@gmail.com
+   password: ch4n.Ch0
+   api: https://api.run.pivotal.io
+   organization: kipubit
+   space: development
