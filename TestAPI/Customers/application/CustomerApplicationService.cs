@@ -10,7 +10,7 @@ namespace Customer.Application
     using Common.Infrastructure.Repository;
     using AutoMapper;
     using System.Collections.Generic;
-    using Customers.domain.service;
+    using Customers.Domain.Service;
     using System.Linq;
     using Common.Application.Dto;
 
