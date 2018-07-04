@@ -1,7 +1,7 @@
 language: csharp
 mono: none
 dotnet: 2.1.301
-before_script: cd Test.API
+before_script: cd TestAPI
 script:
  - dotnet restore
 deploy:
