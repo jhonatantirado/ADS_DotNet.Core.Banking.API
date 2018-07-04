@@ -19,8 +19,7 @@ using BankAccount.Application.Dto;
         public string Password { get; set; }
         public int Id_Rol { get; set; }
         public string User { get; set; }
-
-        private List<BankAccountDto> BankAccounts;
+        public List<BankAccountDto> BankAccounts { get; set; }
 
 }
 

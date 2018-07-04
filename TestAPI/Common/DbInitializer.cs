@@ -23,11 +23,17 @@ namespace Common
                 return;
             }
 
-            var newCustomer = new Customer { FirstName = "User1", LastName = "Ape1", DocumentNumber = "123456789", IsActive = true, Password = "abcde", Id_Rol = 1, User = "user" };
-            _context.Customers.Add(newCustomer);
+            int n = 10000;
+            for (int i =1; i < n; i++)
+            {
+                var newCustomer = new Customer { FirstName = "Name" + i, LastName = "Ape"+ i, DocumentNumber = i.ToString().PadLeft(9,'0'), IsActive = true, Password = "abc"+i, Id_Rol = 1, User = "user"+ i };
+                _context.Customers.Add(newCustomer);
+                _context.BankAccounts.Add(new BankAccount {  CustomerId = newCustomer.Id, Customer = newCustomer, Balance = i*1000, IsLocked = false, Number = i.ToString().PadLeft(9, '0') });
+            }
 
-            _context.BankAccounts.Add(new BankAccount { Customer = newCustomer, Balance = 1500, IsLocked = false, Number = "123-456-001" });
-            _context.BankAccounts.Add(new BankAccount { Customer = newCustomer, Balance = 1800, IsLocked = false, Number = "123-456-002" });
+
+            //_context.BankAccounts.Add(new BankAccount { Customer = newCustomer, Balance = 1500, IsLocked = false, Number = "123-456-001" });
+            //_context.BankAccounts.Add(new BankAccount { Customer = newCustomer, Balance = 1800, IsLocked = false, Number = "123-456-002" });
 
             _context.Roles.Add(new Role { Id = 1, IsActive = true, Role_Name = "Cliente" });
 

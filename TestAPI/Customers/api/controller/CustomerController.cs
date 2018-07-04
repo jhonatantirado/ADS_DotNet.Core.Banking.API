@@ -11,7 +11,7 @@ namespace Customer.Api
     using System.Collections;
     using System.Collections.Generic;
 
-    [Route("api/Customers")]
+    [Route("api/Customers/customer")]
     public class CustomerController
     {
 

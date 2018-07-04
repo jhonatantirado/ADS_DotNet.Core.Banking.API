@@ -10,7 +10,7 @@ namespace BankAccount.Api
 
 
     //[Route("api/[controller]")]
-    [Route("api/Accounts")]
+    [Route("api/Accounts/bankAccount")]
     public class BankAccountController
     {
         IBankAccountApplicationService _bankAccountApplicationService;

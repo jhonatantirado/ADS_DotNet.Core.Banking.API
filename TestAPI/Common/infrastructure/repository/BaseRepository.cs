@@ -1,14 +1,14 @@
-﻿using Common.infrastructure.repository;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-
-
+﻿
 namespace Common.Infrastructure.Repository
 {
+    using Common.infrastructure.repository;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Threading.Tasks;
+
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         DbSet<T> _dbSet;
@@ -79,7 +79,6 @@ namespace Common.Infrastructure.Repository
 
         public IEnumerable<T> GetAllWithPaginated(int pageNumber, int pageSize, string orderBy, string orderDirection)
         {
-
             var skip = (pageNumber - 1) * pageSize;
             return Context.Set<T>()
                 .OrderBy(orderBy, orderDirection)
