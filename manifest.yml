@@ -4,5 +4,5 @@ applications:
   memory: 512M
   instances: 1
   random-route: true
- env:
+  env:
   ASPNETCORE_ENVIRONMENT: Production

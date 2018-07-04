@@ -1,9 +1,9 @@
 language: csharp
 mono: none
-dotnet: 2.1.5
+dotnet: 2.1.301
 script:
- - dotnet restore
  - cd Test.API
+ - dotnet restore
 deploy:
    provider: cloudfoundry
    username: jhonatantiradotiradodeep@gmail.com
