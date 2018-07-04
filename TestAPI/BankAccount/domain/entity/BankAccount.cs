@@ -153,18 +153,9 @@ namespace BankAccount.Domain.Entity
             }
             if (!this.Balance.HasValue)
             {
-                if (this.Balance <= 0)
-                {
-                    notification.addError("Balance Account is required.");
-                }
+                    notification.addError("Balance Account is required.");             
             }
-            if (this.Balance.HasValue)
-            {
-                if (this.Balance <= 0)
-                {
-                    notification.addError("Balance Account is required.");
-                }
-            }
+            
             if (this.CustomerId == 0)
             {
                 notification.addError("The Customer is Required");

@@ -28,6 +28,15 @@ namespace Customer.Application
         }
 
 
+        public CustomerDto getById(long CustomerId)
+        {
+            var customer = _iUnitOfWork.Customers.getByIdWithAccounts(CustomerId);
+
+            CustomerDto customerDto = _mapper.Map<CustomerDto>(customer);
+            //customerDto
+            return customerDto;
+        }
+
         public void create(CustomerDto customerDto)
         {
             Notification notification = this.validation(customerDto);
@@ -165,12 +174,8 @@ namespace Customer.Application
             return result;
         }
 
-        public CustomerDto getById(long CustomerId)
-        {
-            var customer = _iUnitOfWork.Customers.GetById(CustomerId);
-            CustomerDto customerDto = _mapper.Map<CustomerDto>(customer);
-            return customerDto;
-        }
+
+
     }
 }
 

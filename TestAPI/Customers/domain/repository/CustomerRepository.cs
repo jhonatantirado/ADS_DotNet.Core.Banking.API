@@ -3,17 +3,18 @@ namespace Customer.Domain.Repository
 {
     using Common.Infrastructure.Repository;
     using Customer.Domain.Entity;
-    using Customer.Domain.Repository;
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
 
-
-    public class CustomerRepository : BaseRepository<Customer> ,  ICustomerRepository  
+    public class CustomerRepository : BaseRepository<Customer>, ICustomerRepository
     {
-        public CustomerRepository( BankingContext context): base( context)
+        public CustomerRepository(BankingContext context) : base(context)
         {
+        }
+
+        public Customer getByIdWithAccounts(long IdCustomer)
+        {
+            return base.Context.Set<Customer>().Include(x => x.BankAccounts).Where(x => x.Id == IdCustomer).FirstOrDefault();
         }
 
         public void delete(long CustomerId)
@@ -30,7 +31,10 @@ namespace Customer.Domain.Repository
 
         public Customer findByOtherUserName(string user, long IdCustomer)
         {
-            return base.Context.Set<Customer>().Where(x => x.User== user && x.Id != IdCustomer).FirstOrDefault();
+            return base.Context.Set<Customer>().Where(x => x.User == user && x.Id != IdCustomer).FirstOrDefault();
         }
+
+     
+
     }
 }

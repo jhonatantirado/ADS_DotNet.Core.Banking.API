@@ -12,7 +12,9 @@ namespace Common.Application.Dto
         public int PageSize { get; set; }
         public int TotalRecords { get; set; }
         public IList Content { get; set; }
-        public int TotalPages => (int)Math.Ceiling((decimal)TotalRecords / PageSize);
+        public int TotalPages =>   (int)Math.Ceiling((decimal)(PageSize == 0 ? 0 : TotalRecords / PageSize));
+      
+
 
     }
 }
