@@ -3,6 +3,7 @@ mono: none
 dotnet: 2.1.0
 script:
  - dotnet restore
+ - cd Test.API
 deploy:
    provider: cloudfoundry
    username: jhonatantiradotiradodeep@gmail.com
