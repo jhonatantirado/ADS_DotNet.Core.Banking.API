@@ -1,8 +1,8 @@
 language: csharp
 mono: none
 dotnet: 2.1.301
+before_script: cd Test.API
 script:
- - cd Test.API
  - dotnet restore
 deploy:
    provider: cloudfoundry
