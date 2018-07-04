@@ -72,15 +72,9 @@ namespace TestAPI
                 app.UseHsts();
             }
 
-            app.UseCors(builder => builder.WithOrigins( "https://banking-client-reflective-oribi.cfapps.io"
-                                                                                 , "http://localhost:4200"
-                                                                                 , "https://banking-client-persistent-squirrel.cfapps.io" ));
-
-
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
+            app.UseCors(options => options.WithOrigins("https://banking-client-reflective-oribi.cfapps.io",
+            "http://localhost:4200",
+            "https://banking-client-persistent-squirrel.cfapps.io").AllowAnyMethod());
 
             app.UseHttpsRedirection();
             app.UseMvc();
