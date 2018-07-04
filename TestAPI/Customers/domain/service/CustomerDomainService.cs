@@ -1,5 +1,5 @@
 ﻿
-namespace Customers.domain.service
+namespace Customers.Domain.Service
 {
     using Common.Application;
     using Customer.Domain.Entity;
@@ -61,6 +61,7 @@ namespace Customers.domain.service
                 throw;
             }
         }
+
 
     }
 }

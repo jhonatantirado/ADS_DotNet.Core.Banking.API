@@ -11,16 +11,20 @@
     using Common.Application.Dto;
     using System.Linq;
     using System.Collections.Generic;
+    using Customer.Domain.Entity;
+    using Customers.Domain.Service;
 
     public class BankAccountApplicationService : IBankAccountApplicationService
     {
         private readonly IUnitOfWork _iUnitOfWork;
         private readonly IMapper _mapper;
         private readonly BankAccountDomainService bankAccountDomainService;
+        private readonly CustomerDomainService customerDomainService;
 
         public BankAccountApplicationService(IUnitOfWork iUnitOfWork, IMapper mapper)
         {
             bankAccountDomainService = new BankAccountDomainService();
+            customerDomainService = new CustomerDomainService();
             _iUnitOfWork = iUnitOfWork;
             _mapper = mapper;
         }
@@ -42,6 +46,9 @@
             }
             BankAccount findBankAccount = _iUnitOfWork.BankAccounts.findByNumberLocked(bankAccountDto.Number);
             this.bankAccountDomainService.validDoesntExistNumberAccount(findBankAccount);
+
+            Customer findCustomer = _iUnitOfWork.Customers.GetById(bankAccount.CustomerId);
+            this.customerDomainService.validExistCustomer(findCustomer);
 
             _iUnitOfWork.BankAccounts.Add(bankAccount);
             _iUnitOfWork.Complete();
@@ -73,6 +80,8 @@
             findBankAccount = _iUnitOfWork.BankAccounts.findByOtherNumber(bankAccount.Number, bankAccount.Id);
             this.bankAccountDomainService.validDoesntExistNumberAccount(findBankAccount);
 
+            Customer findCustomer = _iUnitOfWork.Customers.GetById(bankAccount.CustomerId);
+            this.customerDomainService.validExistCustomer(findCustomer);
 
             return notification;
         }

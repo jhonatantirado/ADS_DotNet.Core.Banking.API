@@ -28,7 +28,7 @@ namespace Common
             {
                 var newCustomer = new Customer { FirstName = "Name" + i, LastName = "Ape"+ i, DocumentNumber = i.ToString().PadLeft(9,'0'), IsActive = true, Password = "abc"+i, Id_Rol = 1, User = "user"+ i };
                 _context.Customers.Add(newCustomer);
-                _context.BankAccounts.Add(new BankAccount {  CustomerId = newCustomer.Id, Customer = newCustomer, Balance = i*1000, IsLocked = false, Number = i.ToString().PadLeft(9, '0') });
+                _context.BankAccounts.Add(new BankAccount {  CustomerId = newCustomer.Id, Customer = newCustomer, Balance = 100, IsLocked = false, Number = i.ToString().PadLeft(9, '0') });
             }
 
 

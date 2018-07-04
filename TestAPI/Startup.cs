@@ -72,8 +72,10 @@ namespace TestAPI
                 app.UseHsts();
             }
 
-            // Shows UseCors with CorsPolicyBuilder.
-            app.UseCors(builder =>builder.WithOrigins("https://banking-client-persistent-squirrel.cfapps.io"));
+            app.UseCors(builder => builder.WithOrigins( "https://banking-client-reflective-oribi.cfapps.io"
+                                                                                 , "http://localhost:4200"
+                                                                                 , "https://banking-client-persistent-squirrel.cfapps.io" ));
+
 
             //app.Run(async (context) =>
             //{
