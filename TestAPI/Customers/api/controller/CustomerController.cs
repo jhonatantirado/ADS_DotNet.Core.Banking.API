@@ -6,13 +6,13 @@ namespace Customer.Api
     using Common.Application.Dto;
     using Common.Api.Controller;
     using System;
-    using Microsoft.AspNetCore.Mvc;    
+    using Microsoft.AspNetCore.Mvc;
     using Common.Infrastructure.Repository;
     using System.Collections;
     using System.Collections.Generic;
 
     [Route("api/Customers/customer")]
-    public class CustomerController
+    public class CustomerController : Controller
     {
 
         ICustomerApplicationService _customerApplicationService;
@@ -25,68 +25,83 @@ namespace Customer.Api
         }
 
         [HttpGet("{CustomerId}")]
-        public CustomerDto Get(long CustomerId)
+        public IActionResult Get(long CustomerId)
         {
-            return _customerApplicationService.getById(CustomerId);
+            try
+            {
+                return Created( nameof(Get), _customerApplicationService.getById(CustomerId));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+            }
+
         }
 
         [HttpGet]
-        public GridDto Get(int offset, int limit )
+        public IActionResult Get(int offset, int limit)
         {
-            return _customerApplicationService.getAll(offset, limit);
+            try
+            {
+                return Created(nameof(Get), _customerApplicationService.getAll(offset, limit));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+            }
         }
 
         [HttpPost]
-        public ResponseDto Post([FromBody] CustomerDto customerDto)
+        public IActionResult Post([FromBody] CustomerDto customerDto)
         {
             try
             {
                 _customerApplicationService.create(customerDto);
-                return this.responseHandler.getOkCommandResponse("Customer created!");
+                return Created(nameof(Post), this.responseHandler.getOkCommandResponse("Customer created!"));
             }
             catch (ArgumentException ex)
             {
-                return this.responseHandler.getAppCustomErrorResponse(ex.Message);
+                return BadRequest(this.responseHandler.getAppCustomErrorResponse(ex.Message));
             }
             catch (Exception ex)
             {
-                return this.responseHandler.getAppExceptionResponse();
+                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
             }
         }
 
         [HttpPut("{CustomerId}")]
-        public ResponseDto Put([FromBody] CustomerDto customerDto, long CustomerId)
+        public IActionResult Put([FromBody] CustomerDto customerDto, long CustomerId)
         {
             try
             {
                 _customerApplicationService.update(customerDto, CustomerId);
-                return this.responseHandler.getOkCommandResponse("Customer updated!");
+                return Created(nameof(Put), this.responseHandler.getOkCommandResponse("Customer updated!"));
             }
             catch (ArgumentException ex)
             {
-                return this.responseHandler.getAppCustomErrorResponse(ex.Message);
+                return BadRequest(this.responseHandler.getAppCustomErrorResponse(ex.Message));
             }
             catch (Exception ex)
             {
-                return this.responseHandler.getAppExceptionResponse();
+                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
             }
         }
 
         [HttpDelete("{CustomerId}")]
-        public ResponseDto Delete(int CustomerId)
+        public IActionResult Delete(int CustomerId)
         {
             try
             {
                 _customerApplicationService.deleted(CustomerId);
-                return this.responseHandler.getOkCommandResponse("Bank Account deleted!");
+                return Created(nameof(Delete), this.responseHandler.getOkCommandResponse("Bank Account deleted!"));
             }
             catch (ArgumentException ex)
             {
-                return this.responseHandler.getAppCustomErrorResponse(ex.Message);
+                return BadRequest(this.responseHandler.getAppCustomErrorResponse(ex.Message));
             }
             catch (Exception ex)
             {
-                return this.responseHandler.getAppExceptionResponse();
+                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
             }
         }
     }

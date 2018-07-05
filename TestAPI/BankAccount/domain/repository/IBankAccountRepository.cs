@@ -16,5 +16,6 @@ namespace BankAccount.Domain.Repository
         BankAccount findByOtherNumber(string accountNumber, long IdBankAccount);
         void save(BankAccount bankAccount);
         void lockAccount(long Id);
+        List<BankAccount> getByIdCustomer(long CustomerId);
     }
 }
