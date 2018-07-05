@@ -8,7 +8,7 @@ namespace BankAccount.Api
     using Common.Api.Controller;
     using BankAccount.Application;
 
-    [Route("api/Accounts/bankAccount")]
+    [Route("api/Accounts")]
     public class BankAccountController : Controller
     {
         IBankAccountApplicationService _bankAccountApplicationService;
@@ -20,7 +20,7 @@ namespace BankAccount.Api
             responseHandler = new ResponseHandler();
         }
 
-        [HttpGet("{AccountId}")]
+        [HttpGet("bankAccount/{AccountId}")]
         public IActionResult Get(long AccountId)
         {
             try
@@ -34,7 +34,7 @@ namespace BankAccount.Api
 
         }
 
-        [HttpGet]
+        [HttpGet("bankAccount")]
         public IActionResult Get(int offset, int limit)
         {
             try
@@ -48,7 +48,20 @@ namespace BankAccount.Api
 
         }
 
-        [HttpPost]
+        [HttpGet("getAccountIdCustomer/{CustomerId}")]
+        public IActionResult getAccountIdCustomer(long CustomerId)
+        {
+            try
+            {
+                return Created(nameof(Get), _bankAccountApplicationService.getByIdCustomer(CustomerId));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+            }
+        }
+
+        [HttpPost("bankAccount")]
         public IActionResult Post([FromBody] BankAccountDto bankAccountDto)
         {
             try
@@ -66,7 +79,7 @@ namespace BankAccount.Api
             }
         }
 
-        [HttpPut("{AcccountId}")]
+        [HttpPut("bankAccount/{AcccountId}")]
         public IActionResult Put([FromBody] BankAccountDto bankAccountDto, long AcccountId)
         {
             try
@@ -84,7 +97,7 @@ namespace BankAccount.Api
             }
         }
 
-        [HttpDelete("{AcccountId}")]
+        [HttpDelete("bankAccount/{AcccountId}")]
         public IActionResult Delete(long AcccountId)
         {
             try

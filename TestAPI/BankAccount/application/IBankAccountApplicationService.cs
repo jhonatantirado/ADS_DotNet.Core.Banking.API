@@ -15,7 +15,8 @@ namespace BankAccount.Application
         void update(BankAccountDto bankAccountDto, long AcccountId);
         void lockAccount(long AcccountId);
         GridDto getAll(int offset, int limit);
-        BankAccountDto getById(long CustomerId);
+        BankAccountDto getById(long AcccountId);
+       List<BankAccountDto> getByIdCustomer(long CustomerId);
 
     }
 }
