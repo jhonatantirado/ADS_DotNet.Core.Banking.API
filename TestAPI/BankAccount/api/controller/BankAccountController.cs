@@ -8,10 +8,8 @@ namespace BankAccount.Api
     using Common.Api.Controller;
     using BankAccount.Application;
 
-
-    //[Route("api/[controller]")]
     [Route("api/Accounts/bankAccount")]
-    public class BankAccountController
+    public class BankAccountController : Controller
     {
         IBankAccountApplicationService _bankAccountApplicationService;
         ResponseHandler responseHandler;
@@ -23,68 +21,84 @@ namespace BankAccount.Api
         }
 
         [HttpGet("{AccountId}")]
-        public  BankAccountDto Get(long AccountId)
+        public IActionResult Get(long AccountId)
         {
-            return _bankAccountApplicationService.getById(AccountId);
+            try
+            {
+                return Created(nameof(Get), _bankAccountApplicationService.getById(AccountId));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+            }
+
         }
 
         [HttpGet]
-        public GridDto Get(int offset, int limit)
+        public IActionResult Get(int offset, int limit)
         {
-            return _bankAccountApplicationService.getAll(offset, limit);
+            try
+            {
+                return Created(nameof(Get), _bankAccountApplicationService.getAll(offset, limit));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+            }
+
         }
 
         [HttpPost]
-        public ResponseDto Post([FromBody] BankAccountDto bankAccountDto)
+        public IActionResult Post([FromBody] BankAccountDto bankAccountDto)
         {
             try
             {
                 _bankAccountApplicationService.create(bankAccountDto);
-                return this.responseHandler.getOkCommandResponse("Bank Account created!");
+                return Created(nameof(Post), this.responseHandler.getOkCommandResponse("Bank Account created!"));
             }
             catch (ArgumentException ex)
             {
-                return this.responseHandler.getAppCustomErrorResponse(ex.Message);
+                return BadRequest(this.responseHandler.getAppCustomErrorResponse(ex.Message));
             }
             catch (Exception ex)
             {
-                return this.responseHandler.getAppExceptionResponse();
+                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
             }
         }
 
         [HttpPut("{AcccountId}")]
-        public ResponseDto Put([FromBody] BankAccountDto bankAccountDto , long AcccountId)
+        public IActionResult Put([FromBody] BankAccountDto bankAccountDto, long AcccountId)
         {
             try
             {
-                _bankAccountApplicationService.update(bankAccountDto,AcccountId);
-                return this.responseHandler.getOkCommandResponse("Bank Account updated!");
+                _bankAccountApplicationService.update(bankAccountDto, AcccountId);
+                return Created(nameof(Put), this.responseHandler.getOkCommandResponse("Bank Account updated!"));
             }
             catch (ArgumentException ex)
             {
-                return this.responseHandler.getAppCustomErrorResponse(ex.Message);
+                return BadRequest(this.responseHandler.getAppCustomErrorResponse(ex.Message));
             }
             catch (Exception ex)
             {
-                return this.responseHandler.getAppExceptionResponse();
+                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
             }
         }
 
         [HttpDelete("{AcccountId}")]
-        public ResponseDto Delete(long AcccountId)
+        public IActionResult Delete(long AcccountId)
         {
             try
             {
                 _bankAccountApplicationService.lockAccount(AcccountId);
-                return this.responseHandler.getOkCommandResponse("Bank Account deleted!");
+                return Created(nameof(Delete), this.responseHandler.getOkCommandResponse("Bank Account deleted!"));
             }
             catch (ArgumentException ex)
             {
-                return this.responseHandler.getAppCustomErrorResponse(ex.Message);
+                return BadRequest(this.responseHandler.getAppCustomErrorResponse(ex.Message));
             }
             catch (Exception ex)
             {
-                return this.responseHandler.getAppExceptionResponse();
+                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
             }
         }
     }
