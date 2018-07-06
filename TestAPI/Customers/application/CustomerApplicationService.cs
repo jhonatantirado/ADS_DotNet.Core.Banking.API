@@ -30,14 +30,14 @@ namespace Customer.Application
 
         public CustomerDto getById(long CustomerId)
         {
-            var customer = _iUnitOfWork.Customers.getByIdWithAccounts(CustomerId);
+            var customer = _iUnitOfWork.Customers.GetById(CustomerId);
 
             CustomerDto customerDto = _mapper.Map<CustomerDto>(customer);
             //customerDto
             return customerDto;
         }
 
-        public void create(CustomerDto customerDto)
+        public long create(CustomerDto customerDto)
         {
             Notification notification = this.validation(customerDto);
             if (notification.hasErrors())
@@ -63,9 +63,12 @@ namespace Customer.Application
             findCustomer = _iUnitOfWork.Customers.findByOtherUserName(customer.User, customer.Id);
             this.customerDocumentService.validDoesntExistUserCustomer(findCustomer);
 
+            //int o = 0;
+            //var t = 5 / o;
             customer.IsActive = true;
             _iUnitOfWork.Customers.Add(customer);
             _iUnitOfWork.Complete();
+            return customer.Id;
         }
 
         public void deleted(long CustomerId)

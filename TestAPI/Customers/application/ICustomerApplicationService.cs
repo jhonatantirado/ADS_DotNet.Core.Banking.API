@@ -14,7 +14,8 @@ namespace Customer.Application
 
     public interface ICustomerApplicationService 
     {
-        void create(CustomerDto customerDto);
+        //int create2(CustomerDto customerDto);
+        long create(CustomerDto customerDto);
         GridDto getAll(int offset, int limit);
         CustomerDto getById(long CustomerId);
         void update(CustomerDto customerDto , long CustomerId);

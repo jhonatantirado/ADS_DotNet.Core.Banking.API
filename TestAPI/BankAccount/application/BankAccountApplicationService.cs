@@ -151,5 +151,12 @@
             BankAccountDto bankAccountDto = _mapper.Map<BankAccountDto>(bankAccount);
             return bankAccountDto;
         }
+
+        public List<BankAccountDto> getByIdCustomer(long CustomerId)
+        {
+            var bankAccounts = _iUnitOfWork.BankAccounts.getByIdCustomer(CustomerId);
+            List< BankAccountDto> bankAccountDtos = _mapper.Map< List<BankAccountDto>>(bankAccounts);
+            return bankAccountDtos;
+        }
     }
 }
