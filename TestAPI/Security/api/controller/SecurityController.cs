@@ -31,7 +31,7 @@ namespace Security.api.controller
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(this.responseHandler.getAppCustomErrorResponse(ex.Message));
+                return Unauthorized();
             }
             catch (Exception ex)
             {

@@ -18,11 +18,11 @@ namespace Customer.Application
     {
         private readonly IUnitOfWork _iUnitOfWork;
         private readonly IMapper _mapper;
-        private readonly CustomerDomainService customerDocumentService;
+        private readonly CustomerDomainService customerDomainService;
 
         public CustomerApplicationService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            customerDocumentService = new CustomerDomainService();
+            customerDomainService = new CustomerDomainService();
             _iUnitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -45,9 +45,6 @@ namespace Customer.Application
                 throw new ArgumentException(notification.errorMessage());
             }
 
-            //validation nro Documento Doesn't exist in dataBase
-            //validation User Doesn't be repetead in dataBase. 
-
             Customer customer = _mapper.Map<Customer>(customerDto);
 
             notification = customer.validateSaveCustomer();
@@ -58,13 +55,11 @@ namespace Customer.Application
 
             Customer findCustomer = new Customer();
             findCustomer = _iUnitOfWork.Customers.findByOtherDocumentNumber(customer.DocumentNumber, customer.Id);
-            this.customerDocumentService.validDoesntExistDocumentNumber(findCustomer);
+            this.customerDomainService.validDoesntExistDocumentNumber(findCustomer);
 
             findCustomer = _iUnitOfWork.Customers.findByOtherUserName(customer.User, customer.Id);
-            this.customerDocumentService.validDoesntExistUserCustomer(findCustomer);
+            this.customerDomainService.validDoesntExistUserCustomer(findCustomer);
 
-            //int o = 0;
-            //var t = 5 / o;
             customer.IsActive = true;
             _iUnitOfWork.Customers.Add(customer);
             _iUnitOfWork.Complete();
@@ -101,7 +96,7 @@ namespace Customer.Application
             }
 
             Customer findCustomer = new Customer(); // _iUnitOfWork.Customers.GetById( customer.Id);            
-            this.customerDocumentService.validExistCustomer(findCustomer);
+            this.customerDomainService.validExistCustomer(findCustomer);
 
             notification = customer.validateSaveCustomer();
             if (notification.hasErrors())
@@ -110,10 +105,10 @@ namespace Customer.Application
             }
 
             findCustomer = _iUnitOfWork.Customers.findByOtherDocumentNumber(customer.DocumentNumber, customer.Id);
-            this.customerDocumentService.validDoesntExistDocumentNumber(findCustomer);
+            this.customerDomainService.validDoesntExistDocumentNumber(findCustomer);
 
             findCustomer = _iUnitOfWork.Customers.findByOtherUserName(customer.User, customer.Id);
-            this.customerDocumentService.validDoesntExistUserCustomer(findCustomer);
+            this.customerDomainService.validDoesntExistUserCustomer(findCustomer);
 
             return notification;
         }

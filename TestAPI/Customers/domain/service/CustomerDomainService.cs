@@ -62,6 +62,22 @@ namespace Customers.Domain.Service
             }
         }
 
+        public void validExistCustomerLogged(Customer customer)
+        {
+            try
+            {
+                Notification notification = new Notification();
+                if (customer == null)
+                {
+                    notification.addError("User Customer doesn't logged");
+                    throw new ArgumentException(notification.errorMessage());
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
     }
 }

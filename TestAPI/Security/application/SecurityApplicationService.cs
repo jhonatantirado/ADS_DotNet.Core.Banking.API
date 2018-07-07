@@ -27,8 +27,11 @@
         public CustomerDto login(CustomerDto customerDto)
         {
             var customerParam = _mapper.Map<Customer>(customerDto);
-            var customer= _iUnitOfWork.Customers.login(customerParam);
-            CustomerDto customerDtoResult= _mapper.Map<CustomerDto>( customer );
+            var findCustomer = _iUnitOfWork.Customers.login(customerParam);
+
+            this.customerDomainService.validExistCustomerLogged(findCustomer);
+
+            CustomerDto customerDtoResult= _mapper.Map<CustomerDto>(findCustomer);
             return customerDtoResult;
         }
     }
