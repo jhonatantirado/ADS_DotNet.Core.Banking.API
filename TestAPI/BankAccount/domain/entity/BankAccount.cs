@@ -38,7 +38,7 @@ namespace BankAccount.Domain.Entity
         {
         }
 
-        public void isLock()
+        public void lockAccount()
         {
             if (!this.IsLocked)
             {
