@@ -4,6 +4,7 @@ namespace Banking.Test
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using BankAccount.Domain.Entity;
     using Transactions.Domain.Service;
+    using System;
 
     [TestClass]
     public class UnitTest1
@@ -15,32 +16,74 @@ namespace Banking.Test
         [TestMethod]
         public void performTransferSuccess()
         {
-            try
-            {
-                BankAccount originBankAccount = createAccount(originBankAccountNumber, 100);
-                BankAccount destinationBankAccount = createAccount(destinationBankAccountNumber, 10);
-                transferDomainService.performTransfer(originBankAccount, destinationBankAccount, 10);
-                Assert.AreEqual(90, originBankAccount.Balance);
-                Assert.AreEqual(20, destinationBankAccount.Balance);
-            }
-            catch (System.Exception ex)
-            {
 
-                throw;
-            }
+            //arrange
+            BankAccount originBankAccount = createAccount(originBankAccountNumber, 100);
+            BankAccount destinationBankAccount = createAccount(destinationBankAccountNumber, 10);
+
+            //act
+            transferDomainService.performTransfer(originBankAccount, destinationBankAccount, 10);
+
+            //assert
+            Assert.AreEqual(90, originBankAccount.Balance);
+            Assert.AreEqual(20, destinationBankAccount.Balance);
+
         }
 
- //       @Test(expected = IllegalArgumentException.class)
-	//public void performTransferErrorSameAccount() throws Exception
- //       {
- //           BankAccount originBankAccount = createAccount(originBankAccountNumber, new BigDecimal(100));
-	//	BankAccount destinationBankAccount = createAccount(originBankAccountNumber, new BigDecimal(10));
- //       transferDomainService.performTransfer(originBankAccount, destinationBankAccount, new BigDecimal(10));
-	//}
+        [TestMethod]
+        public void performTransferErrorSameAccount()
+        {
+            //arrange
+            BankAccount originBankAccount = createAccount(originBankAccountNumber, 100m);
+            BankAccount destinationBankAccount = createAccount(originBankAccountNumber, 10m);
 
+            //act
+            var exception = ExceptionAssert.Throws<Exception>(
+                () => transferDomainService.performTransfer(originBankAccount, destinationBankAccount, 10m)
+                );
 
-    #region Helpers
-    BankAccount createAccount(string number, decimal balance)
+            //assert
+            Assert.AreEqual(exception.GetType(), typeof(ArgumentException));
+
+        }
+
+        [TestMethod]
+        public void performTransferErrorEmptyAccount()
+        {
+            //arrange
+            BankAccount originBankAccount = null;
+            BankAccount destinationBankAccount = null;
+
+            //act
+            var exception = ExceptionAssert.Throws<Exception>(
+                () => transferDomainService.performTransfer(originBankAccount, destinationBankAccount, 10m)
+                );
+
+            //assert
+            Assert.AreEqual(exception.GetType(), typeof(ArgumentException));
+
+        }
+
+        [TestMethod]
+        public void performTransferErrorLockedDestinationAccount()
+        {
+            //arrange
+            BankAccount originBankAccount = createAccount(originBankAccountNumber, 100m);
+            BankAccount destinationBankAccount = createAccount(destinationBankAccountNumber, 10);
+            destinationBankAccount.lockAccount();
+
+            //act
+            var exception = ExceptionAssert.Throws<Exception>(
+                () => transferDomainService.performTransfer(originBankAccount, destinationBankAccount, 10m)
+                );
+
+            //assert
+            Assert.AreEqual(exception.GetType(), typeof(ArgumentException));
+
+        }
+
+        #region Helpers
+        BankAccount createAccount(string number, decimal balance)
         {
             BankAccount bankAccount = new BankAccount();
             bankAccount.Balance = balance;
