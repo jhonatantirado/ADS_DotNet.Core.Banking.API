@@ -26,6 +26,7 @@ namespace TestAPI
     //using Transactions.Infraestructure;
     using BankAccount.Domain.Repository;
     using BankAccount.Application;
+    using Security.application;
 
     public class Startup
     {
@@ -43,6 +44,7 @@ namespace TestAPI
             services.AddScoped<ICustomerApplicationService, CustomerApplicationService>();
             services.AddScoped<IBankAccountApplicationService,BankAccountApplicationService>();
             services.AddScoped<ITransactionApplicationService, TransactionApplicationService>();
+            services.AddScoped<ISecurityApplicationService,  SecurityApplicationService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
