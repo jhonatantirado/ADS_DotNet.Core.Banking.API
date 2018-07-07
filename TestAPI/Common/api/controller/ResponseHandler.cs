@@ -4,10 +4,10 @@ namespace Common.Api.Controller{
     using Microsoft.AspNetCore.Http;
 
 public class ResponseHandler {
-	public ResponseDto getOkCommandResponse(string message) {
+	public ResponseDto getOkCommandResponse(string message, int StatusCode) {
 		ResponseDto responseDto = new ResponseDto();
 		ResponseOkCommandDto responseOkCommandDto = new ResponseOkCommandDto();
-		responseOkCommandDto.httpStatus = StatusCodes.Status201Created;
+		responseOkCommandDto.httpStatus = StatusCode;
 		responseOkCommandDto.message =message;
 		responseDto.response = responseOkCommandDto;
 		return responseDto;

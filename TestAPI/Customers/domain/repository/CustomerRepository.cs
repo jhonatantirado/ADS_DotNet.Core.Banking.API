@@ -34,7 +34,9 @@ namespace Customer.Domain.Repository
             return base.Context.Set<Customer>().Where(x => x.User == user && x.Id != IdCustomer).FirstOrDefault();
         }
 
-     
-
+        public Customer login(Customer customer)
+        {
+            return base.Context.Set<Customer>().Where(x => x.User == customer.User && x.Password == customer.Password ).FirstOrDefault();
+        }
     }
 }

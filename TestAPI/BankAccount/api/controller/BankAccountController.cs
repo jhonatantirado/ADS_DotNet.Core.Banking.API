@@ -7,6 +7,7 @@ namespace BankAccount.Api
     using Common.Application.Dto;
     using Common.Api.Controller;
     using BankAccount.Application;
+    using Common.constantes;
 
     [Route("api/Accounts")]
     public class BankAccountController : Controller
@@ -39,26 +40,13 @@ namespace BankAccount.Api
         {
             try
             {
-                return Created(nameof(Get), _bankAccountApplicationService.getAll(offset, limit));
+                return Ok(_bankAccountApplicationService.getAll(offset, limit));
             }
             catch (Exception)
             {
-                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
             }
 
-        }
-
-        [HttpGet("getAccountIdCustomer/{CustomerId}")]
-        public IActionResult getAccountIdCustomer(long CustomerId)
-        {
-            try
-            {
-                return Created(nameof(Get), _bankAccountApplicationService.getByIdCustomer(CustomerId));
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
-            }
         }
 
         [HttpPost("bankAccount")]
@@ -67,7 +55,7 @@ namespace BankAccount.Api
             try
             {
                 _bankAccountApplicationService.create(bankAccountDto);
-                return Created(nameof(Post), this.responseHandler.getOkCommandResponse("Bank Account created!"));
+                return Created(nameof(Post), this.responseHandler.getOkCommandResponse("Bank Account created!", Constantes.HttpStatus.Created));
             }
             catch (ArgumentException ex)
             {
@@ -75,7 +63,7 @@ namespace BankAccount.Api
             }
             catch (Exception ex)
             {
-                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
             }
         }
 
@@ -85,7 +73,7 @@ namespace BankAccount.Api
             try
             {
                 _bankAccountApplicationService.update(bankAccountDto, AcccountId);
-                return Created(nameof(Put), this.responseHandler.getOkCommandResponse("Bank Account updated!"));
+                return Ok(this.responseHandler.getOkCommandResponse("Bank Account updated!" , Constantes.HttpStatus.Success ));
             }
             catch (ArgumentException ex)
             {
@@ -93,7 +81,7 @@ namespace BankAccount.Api
             }
             catch (Exception ex)
             {
-                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
             }
         }
 
@@ -103,7 +91,7 @@ namespace BankAccount.Api
             try
             {
                 _bankAccountApplicationService.lockAccount(AcccountId);
-                return Created(nameof(Delete), this.responseHandler.getOkCommandResponse("Bank Account deleted!"));
+                return Ok( this.responseHandler.getOkCommandResponse("Bank Account deleted!" , Constantes.HttpStatus.Success ));
             }
             catch (ArgumentException ex)
             {
@@ -111,8 +99,24 @@ namespace BankAccount.Api
             }
             catch (Exception ex)
             {
-                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
             }
         }
+
+
+        [HttpGet("customer/{CustomerId}")]
+        public IActionResult Customer(long CustomerId)
+        {
+            try
+            {
+                return Ok(_bankAccountApplicationService.getByIdCustomer(CustomerId));
+            }
+            catch (Exception)
+            {
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
+            }
+        }
+
+
     }
 }

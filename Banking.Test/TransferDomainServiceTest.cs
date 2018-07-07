@@ -30,8 +30,17 @@ namespace Banking.Test
             }
         }
 
-        #region Helpers
-        BankAccount createAccount(string number, decimal balance)
+ //       @Test(expected = IllegalArgumentException.class)
+	//public void performTransferErrorSameAccount() throws Exception
+ //       {
+ //           BankAccount originBankAccount = createAccount(originBankAccountNumber, new BigDecimal(100));
+	//	BankAccount destinationBankAccount = createAccount(originBankAccountNumber, new BigDecimal(10));
+ //       transferDomainService.performTransfer(originBankAccount, destinationBankAccount, new BigDecimal(10));
+	//}
+
+
+    #region Helpers
+    BankAccount createAccount(string number, decimal balance)
         {
             BankAccount bankAccount = new BankAccount();
             bankAccount.Balance = balance;

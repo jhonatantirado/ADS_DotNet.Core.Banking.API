@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Security\application\dto\" />
+    <Folder Include="Security\domain\entity\" />
+    <Folder Include="Security\domain\repository\" />
     <Folder Include="Transactions\infraestructure\" />
   </ItemGroup>
 

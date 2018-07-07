@@ -10,6 +10,8 @@ namespace Customer.Api
     using Common.Infrastructure.Repository;
     using System.Collections;
     using System.Collections.Generic;
+    using Microsoft.AspNetCore.Http;
+    using Common.constantes;
 
     [Route("api/Customers/customer")]
     public class CustomerController : Controller
@@ -29,11 +31,11 @@ namespace Customer.Api
         {
             try
             {
-                return Created( nameof(Get), _customerApplicationService.getById(CustomerId));
+                return Ok(_customerApplicationService.getById(CustomerId));
             }
             catch (Exception)
             {
-                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
             }
 
         }
@@ -43,11 +45,11 @@ namespace Customer.Api
         {
             try
             {
-                return Created(nameof(Get), _customerApplicationService.getAll(offset, limit));
+                return Ok(_customerApplicationService.getAll(offset, limit));
             }
             catch (Exception)
             {
-                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
             }
         }
 
@@ -57,7 +59,7 @@ namespace Customer.Api
             try
             {
                 _customerApplicationService.create(customerDto);
-                return Created(nameof(Post), this.responseHandler.getOkCommandResponse("Customer created!"));
+                return Ok(this.responseHandler.getOkCommandResponse("Customer created!", Constantes.HttpStatus.Created));
             }
             catch (ArgumentException ex)
             {
@@ -65,7 +67,7 @@ namespace Customer.Api
             }
             catch (Exception ex)
             {
-                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
             }
         }
 
@@ -75,7 +77,7 @@ namespace Customer.Api
             try
             {
                 _customerApplicationService.update(customerDto, CustomerId);
-                return Created(nameof(Put), this.responseHandler.getOkCommandResponse("Customer updated!"));
+                return Ok(this.responseHandler.getOkCommandResponse("Customer updated!", Constantes.HttpStatus.Success));
             }
             catch (ArgumentException ex)
             {
@@ -83,7 +85,7 @@ namespace Customer.Api
             }
             catch (Exception ex)
             {
-                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
             }
         }
 
@@ -93,7 +95,7 @@ namespace Customer.Api
             try
             {
                 _customerApplicationService.deleted(CustomerId);
-                return Created(nameof(Delete), this.responseHandler.getOkCommandResponse("Bank Account deleted!"));
+                return Ok(this.responseHandler.getOkCommandResponse("Bank Account deleted!", Constantes.HttpStatus.Success));
             }
             catch (ArgumentException ex)
             {
@@ -101,7 +103,7 @@ namespace Customer.Api
             }
             catch (Exception ex)
             {
-                return StatusCode(500, this.responseHandler.getAppExceptionResponse());
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
             }
         }
     }

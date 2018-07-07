@@ -8,7 +8,7 @@ namespace Customer.Domain.Repository
         void delete(long CustomerId);
         Customer findByOtherDocumentNumber(string documentNumber, long IdCustomer);
         Customer findByOtherUserName(string user, long IdCustomer);
-         //Customer getByIdWithAccounts( long IdCustomer);
+        Customer login(Customer customer);
 
     }
 
