@@ -82,6 +82,42 @@ namespace Banking.Test
 
         }
 
+        [TestMethod]
+        public void performTransferErrorNoMoneyOriginAccount()
+        {
+            //arrange
+            BankAccount originBankAccount = createAccount(originBankAccountNumber, 5m);
+            BankAccount destinationBankAccount = createAccount(destinationBankAccountNumber, 10m);
+
+            //act
+            var exception = ExceptionAssert.Throws<Exception>(
+                () => transferDomainService.performTransfer(originBankAccount, destinationBankAccount, 10m)
+                );
+
+            //assert
+            Assert.AreEqual(exception.GetType(), typeof(ArgumentException));
+
+        }
+
+
+        [TestMethod]
+        public void performTransferErrorNegativeTransference()
+        {
+            //arrange
+            BankAccount originBankAccount = createAccount(originBankAccountNumber, 5m);
+            BankAccount destinationBankAccount = createAccount(destinationBankAccountNumber, 10m);
+
+            //act
+            var exception = ExceptionAssert.Throws<Exception>(
+                () => transferDomainService.performTransfer(originBankAccount, destinationBankAccount, -10m)
+                );
+
+            //assert
+            Assert.AreEqual(exception.GetType(), typeof(ArgumentException));
+
+        }
+
+
         #region Helpers
         BankAccount createAccount(string number, decimal balance)
         {
