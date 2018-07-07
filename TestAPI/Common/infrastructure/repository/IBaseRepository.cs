@@ -13,8 +13,6 @@ namespace Common.Infrastructure.Repository
 
         T GetById(long id);
 
-        //IQueryable<T> GetQueryable(long id);
-
         void Add(T entity);
 
         void Remove(long Id);

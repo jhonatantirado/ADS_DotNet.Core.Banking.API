@@ -18,7 +18,7 @@ namespace Automapper
             CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<BankAccount, BankAccountDto>().ReverseMap();
             CreateMap<List<Customer>, List<CustomerDto>>().ReverseMap();
-            //CreateMap<List<CustomerDto>, List<Customer>>().ReverseMap();
+         
             
         }
     }

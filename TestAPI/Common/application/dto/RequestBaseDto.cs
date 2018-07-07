@@ -7,15 +7,7 @@ namespace Common.Application.Dto
 
         public RequestBodyType requestBodyType { get; set; }
 
-        //protected RequestBodyType requestBodyType;
-
-        //public RequestBodyType getRequestBodyType() {
-        //	return requestBodyType;
-        //}
-
-        //public void setRequestBodyType(RequestBodyType requestBodyType) {
-        //	this.requestBodyType = requestBodyType;
-        //}
+     
     }
 }
 

@@ -10,11 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 using Transactions.Application.Dto;
 using Transactions.Application;
 using BankAccount.Application.Dto;
+using Common.constantes;
 
 namespace Transactions.Api
 {
     [Route("api/[controller]")]
-    public class TransfersController 
+    public class TransfersController : Controller
     {
         ITransactionApplicationService _transactionApplicationService;
         ResponseHandler responseHandler;
@@ -26,20 +27,20 @@ namespace Transactions.Api
         }
 
         [HttpPost]     
-        public ResponseDto Post([FromBody] RequestBankTransferDto requestBankTransferDto)
+        public IActionResult Post([FromBody] RequestBankTransferDto requestBankTransferDto)
         {
             try
             {
                 _transactionApplicationService.performCreate(requestBankTransferDto);
-                return this.responseHandler.getOkCommandResponse("Transfer done!");
+                return  Ok(this.responseHandler.getOkCommandResponse("Transfer done!" ,Constantes.HttpStatus.Success));
             }
             catch (ArgumentException ex)
             {
-                return this.responseHandler.getAppCustomErrorResponse(ex.Message);
+                return BadRequest( this.responseHandler.getAppCustomErrorResponse(ex.Message));
             }
             catch (Exception ex)
             {
-                return this.responseHandler.getAppExceptionResponse();
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
             }
         }
 

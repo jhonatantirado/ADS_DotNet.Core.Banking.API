@@ -56,7 +56,7 @@ namespace BankAccount.Domain.Entity
 
         public bool hasIdentity()
         {
-            //return !this.Number.Trim().Equals("");
+        
             return !string.IsNullOrWhiteSpace(this.Number);
         }
 
