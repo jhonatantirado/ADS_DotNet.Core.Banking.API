@@ -31,8 +31,7 @@ namespace Customer.Application
         {
             var customer = _iUnitOfWork.Customers.GetById(CustomerId);
 
-            CustomerDto customerDto = _mapper.Map<CustomerDto>(customer);
-            //customerDto
+            CustomerDto customerDto = _mapper.Map<CustomerDto>(customer);           
             return customerDto;
         }
 

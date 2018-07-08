@@ -12,29 +12,26 @@ namespace Transactions.domain.entity
         [Key]
         [Column("id_trans", TypeName = "BIGINT")]
         public long id_trans { get; set; }
-        //BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    
 
         [Required]
         [Column("numb_origen", TypeName = "VARCHAR(50)")]
-        public string numb_origen { get; set; } // VARCHAR(50)  NOT NULL,
+        public string numb_origen { get; set; } 
 
         [Required]
         [Column("numb_destino", TypeName = "VARCHAR(50)")]
-        public string numb_destino { get; set; } //VARCHAR(50)  NOT NULL,
+        public string numb_destino { get; set; } 
 
         [Required]
         [Column("monto", TypeName = "DECIMAL(10,2)")]
-        public decimal monto { get; set; } // DECIMAL(10,2)  NOT NULL,
+        public decimal monto { get; set; }
 
-        [Column("fecha", TypeName = "DATE")]
-        public DateTime fecha { get; set; } // DATETIME NULL,
+        [Column("fecha", TypeName = "DATETIME")]
+        public DateTime fecha { get; set; } 
 
         [Required ]
         [Column("customer_id", TypeName = "BIGINT")]
-        public long customer_id { get; set; } // BIGINT UNSIGNED NOT NULL,
-
-
-        //FOREIGN KEY(customer_id) REFERENCES customer(customer_id)
+        public long customer_id { get; set; } 
 
     }
 }
