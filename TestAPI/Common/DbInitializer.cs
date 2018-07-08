@@ -23,7 +23,7 @@ namespace Common
                 return;
             }
 
-            int n = 2;
+            int n = 100;
             for (int i =1; i < n; i++)
             {
                 var newCustomer = new Customer { FirstName = "Name" + i, LastName = "Ape"+ i, DocumentNumber = i.ToString().PadLeft(9,'0'), IsActive = true, Password = "abc"+i, Id_Rol = 1, User = "user"+ i };

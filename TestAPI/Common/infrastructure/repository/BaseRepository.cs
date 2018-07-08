@@ -38,7 +38,6 @@ namespace Common.Infrastructure.Repository
             return _dbSet.ToList();
         }
 
-        
 
         public T GetById(long id)
         {

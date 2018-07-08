@@ -9,7 +9,7 @@ namespace Banking.Test
     [TestClass]
     public class UnitTest1
     {
-        private TransferDomainService transferDomainService = new TransferDomainService();
+        private TransactionDomainService transferDomainService = new TransactionDomainService();
         private string originBankAccountNumber = "123-456-001";
         private string destinationBankAccountNumber = "123-456-002";
 

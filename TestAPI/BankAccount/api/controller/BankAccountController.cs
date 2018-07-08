@@ -26,7 +26,7 @@ namespace BankAccount.Api
         {
             try
             {
-                return Created(nameof(Get), _bankAccountApplicationService.getById(AccountId));
+                return Ok(_bankAccountApplicationService.getById(AccountId));
             }
             catch (Exception)
             {
@@ -73,7 +73,7 @@ namespace BankAccount.Api
             try
             {
                 _bankAccountApplicationService.update(bankAccountDto, AcccountId);
-                return Ok(this.responseHandler.getOkCommandResponse("Bank Account updated!" , Constantes.HttpStatus.Success ));
+                return Ok(this.responseHandler.getOkCommandResponse("Bank Account updated!", Constantes.HttpStatus.Success));
             }
             catch (ArgumentException ex)
             {
@@ -91,7 +91,7 @@ namespace BankAccount.Api
             try
             {
                 _bankAccountApplicationService.lockAccount(AcccountId);
-                return Ok( this.responseHandler.getOkCommandResponse("Bank Account deleted!" , Constantes.HttpStatus.Success ));
+                return Ok(this.responseHandler.getOkCommandResponse("Bank Account deleted!", Constantes.HttpStatus.Success));
             }
             catch (ArgumentException ex)
             {

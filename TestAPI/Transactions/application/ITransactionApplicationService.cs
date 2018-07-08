@@ -14,10 +14,12 @@ namespace Transactions.Application
     using Transactions.Domain.Service;
     //using Transactions.Infraestructure;
     using BankAccount.Application.Dto;
+    using Customer.Application.Dto;
+    using Transactions.application.dto;
 
     public interface ITransactionApplicationService
     {
          void performCreate(RequestBankTransferDto requestBankTransferDto);
-        //void create( BankAccountDto bankAccountDto);
+        List<TransDetalleDto> getTransferByCustomer(long CustomerId);
     }
 }

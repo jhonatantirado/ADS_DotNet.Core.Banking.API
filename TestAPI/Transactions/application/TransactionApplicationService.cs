@@ -10,19 +10,29 @@ namespace Transactions.application
     using Transactions.Application.Dto;
     using Transactions.Domain.Service;
     using Transactions.Application;
-
+    using Customer.Application.Dto;
+    using System.Collections.Generic;
+    using Transactions.application.dto;
+    using Transactions.domain.entity;
 
     public class TransactionApplicationService : ITransactionApplicationService
     {
-        private readonly TransferDomainService transferDomainService;
+        private readonly TransactionDomainService transferDomainService;
         private readonly IUnitOfWork _iUnitOfWork;
         private readonly IMapper _mapper;
 
         public TransactionApplicationService(IUnitOfWork iUnitOfWork, IMapper mapper)
         {
-            transferDomainService = new TransferDomainService();
+            transferDomainService = new TransactionDomainService();
             _iUnitOfWork = iUnitOfWork;
             _mapper = mapper;
+        }
+
+        public List<TransDetalleDto> getTransferByCustomer(long CustomerId)
+        {
+           var TransferDetalleResult =  _iUnitOfWork.Transactions.getTransferByCustomer(CustomerId);
+            List<TransDetalleDto> TransferDetalleResponse = _mapper.Map< List<TransDetalleDto>>(TransferDetalleResult);
+            return TransferDetalleResponse;
         }
 
         public void performCreate(RequestBankTransferDto requestBankTransferDto)
@@ -37,8 +47,19 @@ namespace Transactions.application
 
             this.transferDomainService.performTransfer(originAccount, destinationAccount, requestBankTransferDto.amount);
 
+            var idCustomer = originAccount.CustomerId;
+
             this._iUnitOfWork.BankAccounts.save(originAccount);
             this._iUnitOfWork.BankAccounts.save(destinationAccount);
+
+            TransDetalle transDetalle = new TransDetalle() { customer_id  = idCustomer
+                                                                                        , numb_origen = requestBankTransferDto.fromAccountNumber
+                                                                                        , numb_destino = requestBankTransferDto.toAccountNumber
+                                                                                        , fecha = DateTime.Now
+                                                                                        , monto = requestBankTransferDto.amount
+                                                                                         };
+            this._iUnitOfWork.Transactions.Add(transDetalle);
+
             this._iUnitOfWork.Complete();
         }
 
