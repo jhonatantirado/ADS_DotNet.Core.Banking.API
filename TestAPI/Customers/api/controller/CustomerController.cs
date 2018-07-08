@@ -95,7 +95,7 @@ namespace Customer.Api
             try
             {
                 _customerApplicationService.deleted(CustomerId);
-                return Ok(this.responseHandler.getOkCommandResponse("Bank Account deleted!", Constantes.HttpStatus.Success));
+                return Ok(this.responseHandler.getOkCommandResponse("Customer deleted!", Constantes.HttpStatus.Success));
             }
             catch (ArgumentException ex)
             {
