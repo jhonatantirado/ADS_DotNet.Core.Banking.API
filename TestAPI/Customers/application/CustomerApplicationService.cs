@@ -27,7 +27,6 @@ namespace Customer.Application
             _mapper = mapper;
         }
 
-
         public CustomerDto getById(long CustomerId)
         {
             var customer = _iUnitOfWork.Customers.GetById(CustomerId);

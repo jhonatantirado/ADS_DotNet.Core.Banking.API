@@ -12,11 +12,6 @@ namespace Customer.Domain.Repository
         {
         }
 
-        //public Customer getByIdWithAccounts(long IdCustomer)
-        //{
-        //    return base.Context.Set<Customer>().Where(x => x.Id == IdCustomer).FirstOrDefault();
-        //}
-
         public void delete(long CustomerId)
         {
             var customer = base.GetById(CustomerId);

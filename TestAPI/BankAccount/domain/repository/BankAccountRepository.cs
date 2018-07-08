@@ -32,7 +32,7 @@ namespace BankAccount.Domain.Repository
             return base.Context.Set<BankAccount>().Where(x => x.Number == accountNumber && x.Id != IdBankAccount).FirstOrDefault();
         }
 
-        public List<BankAccount> getByIdCustomer(long CustomerId)
+        public List<BankAccount> getBankAccountsByIdCustomer(long CustomerId)
         {
             return base.Context.Set<BankAccount>().Where(x => x.CustomerId == CustomerId).ToList();
         }

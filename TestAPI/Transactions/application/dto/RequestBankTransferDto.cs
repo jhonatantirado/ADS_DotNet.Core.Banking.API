@@ -22,35 +22,6 @@
             this.requestBodyType = requestBodyType;
         }
 
-        //public string getFromAccountNumber()
-        //{
-        //    return fromAccountNumber;
-        //}
-
-        //public void setFromAccountNumber(string fromAccountNumber)
-        //{
-        //    this.fromAccountNumber = fromAccountNumber;
-        //}
-
-        //public string getToAccountNumber()
-        //{
-        //    return toAccountNumber;
-        //}
-
-        //public void setToAccountNumber(string toAccountNumber)
-        //{
-        //    this.toAccountNumber = toAccountNumber;
-        //}
-
-        //public decimal getAmount()
-        //{
-        //    return amount;
-        //}
-
-        //public void setAmount(decimal amount)
-        //{
-        //    this.amount = amount;
-        //}
-
+     
     }
 }

@@ -7,12 +7,13 @@ namespace Common.Infrastructure.Repository
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Transactions.domain.repository;
 
     public interface IUnitOfWork : IDisposable
     {
         ICustomerRepository Customers { get; }
         IBankAccountRepository BankAccounts { get; }
+        ITransactionRepository Transactions  { get; }
         int Complete();
     }
 }

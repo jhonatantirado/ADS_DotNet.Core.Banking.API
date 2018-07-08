@@ -11,6 +11,7 @@ using Transactions.Application.Dto;
 using Transactions.Application;
 using BankAccount.Application.Dto;
 using Common.constantes;
+using Customer.Application.Dto;
 
 namespace Transactions.Api
 {
@@ -44,6 +45,22 @@ namespace Transactions.Api
             }
         }
 
-        
+        [HttpGet("{CustomerId}")]
+        public IActionResult Customer(long CustomerId)
+        {
+            try
+            {
+                return Ok(_transactionApplicationService.getTransferByCustomer(CustomerId));                
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(this.responseHandler.getAppCustomErrorResponse(ex.Message));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
+            }
+        }
+
     }
 }

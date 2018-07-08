@@ -8,7 +8,7 @@ namespace Transactions.Domain.Service
     using BankAccount.Domain.Entity;
     using Common.Application;
 
-    public class TransferDomainService
+    public class TransactionDomainService
     {
         public void performTransfer(BankAccount originAccount, BankAccount destinationAccount, decimal amount)
         {
