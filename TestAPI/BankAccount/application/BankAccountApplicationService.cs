@@ -29,6 +29,9 @@
             _mapper = mapper;
         }
 
+        #region public methods
+
+
         public void create(BankAccountDto bankAccountDto)
         {
             BankAccount bankAccount = _mapper.Map<BankAccount>(bankAccountDto);
@@ -54,7 +57,36 @@
             _iUnitOfWork.Complete();
         }
 
-        Notification validUpdate(BankAccount bankAccount)
+        public void update(BankAccountDto bankAccountDto, long AcccountId)
+        {
+            BankAccount bankAccount = _mapper.Map<BankAccount>(bankAccountDto);
+            bankAccount.Id = AcccountId;
+
+            validUpdate(bankAccount);
+
+            _iUnitOfWork.BankAccounts.Update(bankAccount);
+            _iUnitOfWork.Complete();
+        }
+
+        public void lockAccount(long AcccountId)
+        {
+            Notification notification = this.validationAccountId(AcccountId);
+            if (notification.hasErrors())
+            {
+                throw new ArgumentException(notification.errorMessage());
+            }
+
+            BankAccount findBankAccount = new BankAccount(); //_iUnitOfWork.BankAccounts.GetById(Id);
+            //this.bankAccountDomainService.validExistBankAccount(findBankAccount);
+
+            _iUnitOfWork.BankAccounts.lockAccount(AcccountId);
+            _iUnitOfWork.Complete();
+        }
+
+
+        #endregion
+
+        private Notification validUpdate(BankAccount bankAccount)
         {
             Notification notification = this.validationAccountId(bankAccount.Id);
             if (notification.hasErrors())
@@ -86,32 +118,6 @@
             return notification;
         }
 
-        public void update(BankAccountDto bankAccountDto, long AcccountId)
-        {
-            BankAccount bankAccount = _mapper.Map<BankAccount>(bankAccountDto);
-            bankAccount.Id = AcccountId;
-
-            validUpdate(bankAccount);
-
-            _iUnitOfWork.BankAccounts.Update(bankAccount);
-            _iUnitOfWork.Complete();
-        }
-
-        public void lockAccount(long AcccountId)
-        {
-            Notification notification = this.validationAccountId(AcccountId);
-            if (notification.hasErrors())
-            {
-                throw new ArgumentException(notification.errorMessage());
-            }
-
-            BankAccount findBankAccount = new BankAccount(); //_iUnitOfWork.BankAccounts.GetById(Id);
-            //this.bankAccountDomainService.validExistBankAccount(findBankAccount);
-
-            _iUnitOfWork.BankAccounts.lockAccount(AcccountId);
-            _iUnitOfWork.Complete();
-        }
-
         private Notification validationIsNull(BankAccount bankAccount)
         {
             Notification notification = new Notification();
@@ -131,6 +137,9 @@
             }
             return notification;
         }
+
+
+        #region private methods
 
         public GridDto getAll(int offset, int limit)
         {
@@ -155,8 +164,12 @@
         public List<BankAccountDto> getByIdCustomer(long CustomerId)
         {
             var bankAccounts = _iUnitOfWork.BankAccounts.getBankAccountsByIdCustomer(CustomerId);
-            List< BankAccountDto> bankAccountDtos = _mapper.Map< List<BankAccountDto>>(bankAccounts);
+            List<BankAccountDto> bankAccountDtos = _mapper.Map<List<BankAccountDto>>(bankAccounts);
             return bankAccountDtos;
         }
+
+        #endregion
+
+
     }
 }
