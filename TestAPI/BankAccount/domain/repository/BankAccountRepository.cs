@@ -34,7 +34,7 @@ namespace BankAccount.Domain.Repository
 
         public List<BankAccount> getBankAccountsByIdCustomer(long CustomerId)
         {
-            return base.Context.Set<BankAccount>().Where(x => x.CustomerId == CustomerId &&  x.IsLocked == false ).ToList();
+            return base.Context.Set<BankAccount>().Where(x => x.CustomerId == CustomerId &&  !x.IsLocked  ).ToList();
         }
 
         public void lockAccount(long Id)

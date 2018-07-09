@@ -21,7 +21,7 @@ namespace Customer.Domain.Repository
 
         public Customer findByDocumentNumber(string documentNumber)
         {
-            return base.Context.Set<Customer>().Where(x => x.DocumentNumber == documentNumber ).FirstOrDefault();
+            return base.Context.Set<Customer>().Where(x => x.DocumentNumber == documentNumber && x.IsActive).FirstOrDefault();
         }
 
         public Customer findByOtherDocumentNumber(string documentNumber, long IdCustomer)
@@ -36,7 +36,7 @@ namespace Customer.Domain.Repository
 
         public Customer login(Customer customer)
         {
-            return base.Context.Set<Customer>().Where(x => x.User == customer.User && x.Password == customer.Password ).FirstOrDefault();
+            return base.Context.Set<Customer>().Where(x => x.User == customer.User && x.Password == customer.Password).FirstOrDefault();
         }
     }
 }
