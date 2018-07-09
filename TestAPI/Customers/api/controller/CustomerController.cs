@@ -53,6 +53,21 @@ namespace Customer.Api
             }
         }
 
+        [Route("/api/Customers/findByDocumentNumber")]
+        [HttpGet]
+        public IActionResult  findByDocumentNumber(string documentNumber)
+        {
+            try
+            {
+                return Ok(_customerApplicationService.findByDocumentNumber(documentNumber));
+            }
+            catch (Exception)
+            {
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
+            }
+
+        }
+
         [HttpPost]
         public IActionResult Post([FromBody] CustomerDto customerDto)
         {

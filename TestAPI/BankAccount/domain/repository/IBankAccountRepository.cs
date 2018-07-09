@@ -17,5 +17,7 @@ namespace BankAccount.Domain.Repository
         void save(BankAccount bankAccount);
         void lockAccount(long Id);
         List<BankAccount> getBankAccountsByIdCustomer(long CustomerId);
+     
+
     }
 }

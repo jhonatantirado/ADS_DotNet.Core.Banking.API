@@ -20,6 +20,7 @@ namespace Customer.Application
         CustomerDto getById(long CustomerId);
         void update(CustomerDto customerDto , long CustomerId);
         void deleted(long CustomerId);
+        CustomerDto findByDocumentNumber(string documentNumber);
     }
 }
 

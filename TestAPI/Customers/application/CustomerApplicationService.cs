@@ -20,6 +20,8 @@ namespace Customer.Application
         private readonly IMapper _mapper;
         private readonly CustomerDomainService customerDomainService;
 
+        #region public methods
+
         public CustomerApplicationService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             customerDomainService = new CustomerDomainService();
@@ -31,7 +33,7 @@ namespace Customer.Application
         {
             var customer = _iUnitOfWork.Customers.GetById(CustomerId);
 
-            CustomerDto customerDto = _mapper.Map<CustomerDto>(customer);           
+            CustomerDto customerDto = _mapper.Map<CustomerDto>(customer);
             return customerDto;
         }
 
@@ -79,7 +81,49 @@ namespace Customer.Application
             _iUnitOfWork.Complete();
         }
 
-        Notification validUpdate(Customer customer)
+        public void update(CustomerDto customerDto, long CustomerId)
+        {
+            Notification notification = this.validation(customerDto);
+            if (notification.hasErrors())
+            {
+                throw new ArgumentException(notification.errorMessage());
+            }
+            Customer customer = _mapper.Map<Customer>(customerDto);
+            customer.Id = CustomerId;
+
+            validUpdate(customer);
+
+            _iUnitOfWork.Customers.Update(customer);
+            _iUnitOfWork.Complete();
+        }
+
+        public GridDto getAll(int offset, int limit)
+        {
+            List<Customer> customers = _iUnitOfWork.Customers.GetAllWithPaginated(offset, limit, "FirstName", "asc").ToList();
+            GridDto result = new GridDto
+            {
+                Content = customers,
+                TotalRecords = _iUnitOfWork.Customers.CountTotalRecords(),
+                CurrentPage = offset,
+                PageSize = limit
+            };
+            return result;
+        }
+
+        public CustomerDto findByDocumentNumber(string documentNumber)
+        {
+            var customer = _iUnitOfWork.Customers.findByDocumentNumber(documentNumber);
+
+            CustomerDto customerDto = _mapper.Map<CustomerDto>(customer);
+            return customerDto;
+        }
+
+        #endregion
+
+
+        #region private methods
+
+        private Notification validUpdate(Customer customer)
         {
             Notification notification = this.validationCustomerId(customer.Id);
             if (notification.hasErrors())
@@ -109,22 +153,6 @@ namespace Customer.Application
             this.customerDomainService.validDoesntExistUserCustomer(findCustomer);
 
             return notification;
-        }
-
-        public void update(CustomerDto customerDto, long CustomerId)
-        {
-            Notification notification = this.validation(customerDto);
-            if (notification.hasErrors())
-            {
-                throw new ArgumentException(notification.errorMessage());
-            }
-            Customer customer = _mapper.Map<Customer>(customerDto);
-            customer.Id = CustomerId;
-
-            validUpdate(customer);
-
-            _iUnitOfWork.Customers.Update(customer);
-            _iUnitOfWork.Complete();
         }
 
         private Notification validationCustomerId(long CustomerId)
@@ -157,19 +185,7 @@ namespace Customer.Application
             return notification;
         }
 
-        public GridDto getAll(int offset, int limit)
-        {
-            List<Customer> customers = _iUnitOfWork.Customers.GetAllWithPaginated(offset, limit, "FirstName", "asc").ToList();
-            GridDto result = new GridDto
-            {
-                Content = customers,
-                TotalRecords = _iUnitOfWork.Customers.CountTotalRecords(),
-                CurrentPage = offset,
-                PageSize = limit
-            };
-            return result;
-        }
-
+        #endregion
 
 
     }

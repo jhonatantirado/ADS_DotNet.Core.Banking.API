@@ -19,6 +19,11 @@ namespace Customer.Domain.Repository
             base.Update(customer);
         }
 
+        public Customer findByDocumentNumber(string documentNumber)
+        {
+            return base.Context.Set<Customer>().Where(x => x.DocumentNumber == documentNumber ).FirstOrDefault();
+        }
+
         public Customer findByOtherDocumentNumber(string documentNumber, long IdCustomer)
         {
             return base.Context.Set<Customer>().Where(x => x.DocumentNumber == documentNumber && x.Id != IdCustomer).FirstOrDefault();
