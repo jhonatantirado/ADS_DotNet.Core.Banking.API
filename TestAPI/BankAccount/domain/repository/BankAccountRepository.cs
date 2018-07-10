@@ -22,6 +22,12 @@ namespace BankAccount.Domain.Repository
             return base.Context.Set<BankAccount>().Where(x => x.Number == accountNumber).FirstOrDefault();
         }
 
+        public BankAccount findByAccountNumber(string accountNumber)
+        {
+            return base.Context.Set<BankAccount>().Where(x => x.Number == accountNumber && !x.IsLocked).FirstOrDefault();
+        }
+
+
         public BankAccount findByNumberLocked(string accountNumber)
         {
             return base.Context.Set<BankAccount>().Where(x => x.Number == accountNumber).FirstOrDefault();

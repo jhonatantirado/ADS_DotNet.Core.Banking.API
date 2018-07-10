@@ -168,6 +168,14 @@
             return bankAccountDtos;
         }
 
+        public BankAccountDto findByAccountNumber(string accountNumber)
+        {
+            var bankAccount = _iUnitOfWork.BankAccounts.findByAccountNumber(accountNumber);
+
+            BankAccountDto bankAccountDto = _mapper.Map<BankAccountDto>(bankAccount);
+            return bankAccountDto;
+        }
+
         #endregion
 
 

@@ -117,6 +117,19 @@ namespace BankAccount.Api
             }
         }
 
+        [Route("/api/Accounts/findByAccountNumber")]
+        [HttpGet]
+        public IActionResult findByAccountNumber(string accountNumber)
+        {
+            try
+            {
+                return Ok(_bankAccountApplicationService.findByAccountNumber(accountNumber));
+            }
+            catch (Exception)
+            {
+                return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
+            }
+        }
 
     }
 }
