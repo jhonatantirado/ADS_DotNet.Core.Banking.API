@@ -17,6 +17,8 @@ namespace BankAccount.Application
         GridDto getAll(int offset, int limit);
         BankAccountDto getById(long AcccountId);
        List<BankAccountDto> getByIdCustomer(long CustomerId);
+        BankAccountDto findByAccountNumber(string accountNumber);
+        
 
     }
 }
