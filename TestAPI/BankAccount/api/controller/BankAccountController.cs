@@ -8,7 +8,9 @@ namespace BankAccount.Api
     using Common.Api.Controller;
     using BankAccount.Application;
     using Common.constantes;
+    using Microsoft.AspNetCore.Authorization;
 
+    [Authorize]
     [Route("api/Accounts/bankAccount")]
     public class BankAccountController : Controller
     {
@@ -117,6 +119,7 @@ namespace BankAccount.Api
             }
         }
 
+        [Authorize]
         [Route("/api/Accounts/findByAccountNumber")]
         [HttpGet]
         public IActionResult findByAccountNumber(string accountNumber)

@@ -12,9 +12,12 @@ using Transactions.Application;
 using BankAccount.Application.Dto;
 using Common.constantes;
 using Customer.Application.Dto;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Transactions.Api
 {
+
+    [Authorize]
     [Route("api/[controller]")]
     public class TransfersController : Controller
     {
