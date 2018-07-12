@@ -10,7 +10,7 @@ namespace BankAccount.Api
     using Common.constantes;
     using Microsoft.AspNetCore.Authorization;
 
-    [Authorize]
+
     [Route("api/Accounts/bankAccount")]
     public class BankAccountController : Controller
     {
@@ -118,8 +118,7 @@ namespace BankAccount.Api
                 return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
             }
         }
-
-        [Authorize]
+             
         [Route("/api/Accounts/findByAccountNumber")]
         [HttpGet]
         public IActionResult findByAccountNumber(string accountNumber)

@@ -14,7 +14,7 @@ namespace Customer.Api
     using Common.constantes;
     using Microsoft.AspNetCore.Authorization;
 
-    [Authorize]
+   
     [Route("api/Customers/customer")]
     public class CustomerController : Controller
     {
@@ -55,7 +55,6 @@ namespace Customer.Api
             }
         }
 
-        [Authorize]
         [Route("/api/Customers/findByDocumentNumber")]
         [HttpGet]
         public IActionResult  findByDocumentNumber(string documentNumber)
