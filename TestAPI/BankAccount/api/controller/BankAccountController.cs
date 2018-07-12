@@ -10,7 +10,7 @@ namespace BankAccount.Api
     using Common.constantes;
     using Microsoft.AspNetCore.Authorization;
 
-
+    [Authorize]
     [Route("api/Accounts/bankAccount")]
     public class BankAccountController : Controller
     {

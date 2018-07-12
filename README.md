@@ -5,6 +5,7 @@ Using <TargetFramework>netcoreapp2.1</TargetFramework>
 NetCoreBankingWebAPI project using NetCore 2.0 failed deploying to Pivotal
 
 TestAPI project using NetCore 2.1 deployed to Pivotal at: https://netcore-banking-api.cfapps.io/
+Using Travis for CI
 
 Folder structure: Screaming Architecture
 http://www.matthewrenze.com/articles/clean-architecture-in-asp-net-mvc-5/
