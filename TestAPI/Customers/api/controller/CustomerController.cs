@@ -12,7 +12,9 @@ namespace Customer.Api
     using System.Collections.Generic;
     using Microsoft.AspNetCore.Http;
     using Common.constantes;
+    using Microsoft.AspNetCore.Authorization;
 
+    [Authorize]
     [Route("api/Customers/customer")]
     public class CustomerController : Controller
     {

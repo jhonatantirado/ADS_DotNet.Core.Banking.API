@@ -23,10 +23,11 @@ namespace TestAPI
     using Customer.Application;
     using Transactions.application;
     using Transactions.Application;
-    //using Transactions.Infraestructure;
     using BankAccount.Domain.Repository;
     using BankAccount.Application;
     using Security.application;
+    using Microsoft.IdentityModel.Tokens;
+    using System.Text;
 
     public class Startup
     {
@@ -58,6 +59,29 @@ namespace TestAPI
             services.AddSingleton(mapper);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<DbInitializer>();
+
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "Jwt";  
+                options.DefaultChallengeScheme = "Jwt";              
+            }).AddJwtBearer("Jwt", options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false,
+                    //ValidAudience = "the audience you want to validate",
+                    ValidateIssuer = false,
+                    //ValidIssuer = "the isser you want to validate",
+                    
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("the secret that needs to be at least 16 characeters long for HmacSha256")), 
+                    
+                    ValidateLifetime = true, //validate the expiration and not before values in the token
+
+                    ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
+                };
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env ,ILoggerFactory loggerFactory,  DbInitializer seeder)
@@ -76,6 +100,9 @@ namespace TestAPI
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
+            
             app.UseMvc();
         }
     }
