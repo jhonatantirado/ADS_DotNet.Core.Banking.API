@@ -1,20 +1,14 @@
 ﻿
 namespace TestAPI
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+{  
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.HttpsPolicy;
+    using Microsoft.AspNetCore.Hosting;  
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.Options;
+    using Microsoft.Extensions.Logging;  
     using Microsoft.EntityFrameworkCore;
-    using Customer.Domain.Repository;    
+    using Customer.Domain.Repository;
     using AutoMapper;
     using Automapper;
     using Common;
@@ -38,18 +32,24 @@ namespace TestAPI
 
         public IConfiguration Configuration { get; }
 
-     
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<BankingContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));                        
+            #region Inject
+
+            services.AddDbContext<BankingContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
             services.AddScoped<ICustomerApplicationService, CustomerApplicationService>();
-            services.AddScoped<IBankAccountApplicationService,BankAccountApplicationService>();
+            services.AddScoped<IBankAccountApplicationService, BankAccountApplicationService>();
             services.AddScoped<ITransactionApplicationService, TransactionApplicationService>();
-            services.AddScoped<ISecurityApplicationService,  SecurityApplicationService>();
+            services.AddScoped<ISecurityApplicationService, SecurityApplicationService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddCors();
+
+            #endregion
+
+            #region MapperConfig
 
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
@@ -57,6 +57,9 @@ namespace TestAPI
             });
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
+
+            #endregion
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<DbInitializer>();
 
@@ -84,7 +87,7 @@ namespace TestAPI
             });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env ,ILoggerFactory loggerFactory,  DbInitializer seeder)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, DbInitializer seeder)
         {
             loggerFactory.AddConsole();
 
