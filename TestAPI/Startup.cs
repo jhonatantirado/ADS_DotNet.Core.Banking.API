@@ -22,6 +22,7 @@ namespace TestAPI
     using Security.application;
     using Microsoft.IdentityModel.Tokens;
     using System.Text;
+    using System;
 
     public class Startup
     {
@@ -62,7 +63,6 @@ namespace TestAPI
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<DbInitializer>();
-
 
             services.AddAuthentication(options =>
             {
