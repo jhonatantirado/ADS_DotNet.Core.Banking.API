@@ -6,7 +6,11 @@ using Common.Api.Controller;
 using Common.constantes;
 using Customer.Application.Dto;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 using Security.application;
+using System.Text;
 
 namespace Security.api.controller
 {
@@ -27,7 +31,8 @@ namespace Security.api.controller
             try
             {
               var customerDtoResponse =   _securityApplicationServic.login(customer);
-                return Ok(this.responseHandler.getOkCommandResponse("Is Login!", Constantes.HttpStatus.Success, customerDtoResponse));
+              var token = GenerateToken(customer.User);
+                return Ok(this.responseHandler.getOkCommandResponse("bearer " + token, Constantes.HttpStatus.Success, customerDtoResponse));
             }
             catch (ArgumentException ex)
             {
@@ -37,6 +42,24 @@ namespace Security.api.controller
             {
                 return StatusCode(Constantes.HttpStatus.ErrorServer, this.responseHandler.getAppExceptionResponse());
             }
+        }
+
+        private string GenerateToken(string username)
+        {
+            var claims = new Claim[]
+            {
+                new Claim(ClaimTypes.Name, username),
+                new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
+                new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString()),
+            };
+
+            var token = new JwtSecurityToken(
+                new JwtHeader(new SigningCredentials(
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes("the secret that needs to be at least 16 characeters long for HmacSha256")), 
+                                             SecurityAlgorithms.HmacSha256)),
+                new JwtPayload(claims));
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

@@ -16,8 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Transactions.Api
 {
-
- 
+    [Authorize]
     [Route("api/[controller]")]
     public class TransfersController : Controller
     {

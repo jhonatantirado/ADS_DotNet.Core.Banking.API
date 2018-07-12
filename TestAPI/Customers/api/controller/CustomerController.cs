@@ -14,7 +14,7 @@ namespace Customer.Api
     using Common.constantes;
     using Microsoft.AspNetCore.Authorization;
 
-   
+    [Authorize]
     [Route("api/Customers/customer")]
     public class CustomerController : Controller
     {

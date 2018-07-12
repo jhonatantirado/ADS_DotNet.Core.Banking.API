@@ -73,7 +73,7 @@ namespace Customers.Domain.Service
                     throw new ArgumentException(notification.errorMessage());
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }

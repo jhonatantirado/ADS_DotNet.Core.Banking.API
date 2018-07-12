@@ -45,7 +45,7 @@ namespace Customer.Domain.Entity
 
         [Required]
         [Column("id_rol", TypeName = "BIGINT")]
-        public long Id_Rol { get; set; }
+        public long id_rol { get; set; }
 
         [Required]
         [Column("user", TypeName = "VARCHAR(100)")]
