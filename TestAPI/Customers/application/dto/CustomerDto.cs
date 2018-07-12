@@ -17,7 +17,7 @@ using BankAccount.Application.Dto;
         public DateTime? BirthDate { get; set; }
         public bool IsActive { get; set; }
         public string Password { get; set; }
-        public int Id_Rol { get; set; }
+        public int id_rol { get; set; }
         public string User { get; set; }
         public List<BankAccountDto> BankAccounts { get; set; }
 
