@@ -38,7 +38,16 @@ namespace TestAPI
         {
             #region Inject
 
-            services.AddDbContext<BankingContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
+            var MySqlConnection = Environment.GetEnvironmentVariable("BankingAPIConnectionString");
+            Console.WriteLine(MySqlConnection);
+
+            if (String.IsNullOrEmpty(MySqlConnection))
+            {
+                services.AddDbContext<BankingContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
+            }
+
+            services.AddDbContext<BankingContext>(options => options.UseMySql(MySqlConnection));
+            
             services.AddScoped<ICustomerApplicationService, CustomerApplicationService>();
             services.AddScoped<IBankAccountApplicationService, BankAccountApplicationService>();
             services.AddScoped<ITransactionApplicationService, TransactionApplicationService>();
