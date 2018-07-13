@@ -57,8 +57,7 @@ namespace Security.api.controller
                 new JwtHeader(new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.UTF8.GetBytes("the secret that needs to be at least 16 characeters long for HmacSha256")), 
                                              SecurityAlgorithms.HmacSha256)),
-                new JwtPayload(claims));
-
+                    new JwtPayload(claims));
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
