@@ -43,7 +43,7 @@ namespace Customer.Api
         }
 
         [HttpGet]
-        public IActionResult Get(int offset, int limit)
+        public IActionResult Get(int offset = Constantes.DefaultPagination.defaultOffset, int limit = Constantes.DefaultPagination.defaultLimit)
         {
             try
             {

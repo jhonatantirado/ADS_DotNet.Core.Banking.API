@@ -14,7 +14,16 @@ namespace Common.constantes
             public const int Created = StatusCodes.Status201Created;
             public const int BadRequest = StatusCodes.Status400BadRequest;
             public const int ErrorServer = StatusCodes.Status500InternalServerError;
+            public const int defaultOffset = 1;
+            public const int defaultLimit = 10;
 
         }
+
+        public class DefaultPagination
+        {
+            public const int defaultOffset = 1;
+            public const int defaultLimit = 10;
+        }
+
     }
 }
