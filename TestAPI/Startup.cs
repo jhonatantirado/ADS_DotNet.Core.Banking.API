@@ -64,6 +64,9 @@ namespace TestAPI
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<DbInitializer>();
 
+            var TokenSecret = Environment.GetEnvironmentVariable("BankingAPITokenSecret");
+            Console.WriteLine(TokenSecret);
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = "Jwt";  
@@ -75,7 +78,7 @@ namespace TestAPI
                     ValidateAudience = false,
                     ValidateIssuer = false,                    
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("the secret that needs to be at least 16 characeters long for HmacSha256")), 
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(TokenSecret)), 
                     ValidateLifetime = true, 
                     ClockSkew = TimeSpan.FromMinutes(5) 
                 };
