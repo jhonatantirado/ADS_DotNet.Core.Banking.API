@@ -141,9 +141,9 @@
 
         #region private methods
 
-        public GridDto getAll(int offset, int limit)
+        public GridDto getAll(int offset, int limit, string orderBy, string orderDirection)
         {
-            List<BankAccount> bankAccounts = _iUnitOfWork.BankAccounts.GetAllWithPaginated(offset, limit, "number", "asc").ToList();
+            List<BankAccount> bankAccounts = _iUnitOfWork.BankAccounts.GetAllWithPaginated(offset, limit, orderBy , orderDirection).ToList();
             GridDto result = new GridDto
             {
                 Content = bankAccounts,
