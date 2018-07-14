@@ -53,9 +53,12 @@ namespace Security.api.controller
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString()),
             };
 
+            var TokenSecret = Environment.GetEnvironmentVariable("BankingAPITokenSecret");
+            Console.WriteLine(TokenSecret);
+
             var token = new JwtSecurityToken(
                 new JwtHeader(new SigningCredentials(
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes("the secret that needs to be at least 16 characeters long for HmacSha256")), 
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(TokenSecret)), 
                                              SecurityAlgorithms.HmacSha256)),
                     new JwtPayload(claims));
             return new JwtSecurityTokenHandler().WriteToken(token);

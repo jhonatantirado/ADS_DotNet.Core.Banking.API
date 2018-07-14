@@ -38,7 +38,16 @@ namespace TestAPI
         {
             #region Inject
 
-            services.AddDbContext<BankingContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
+            var MySqlConnection = Environment.GetEnvironmentVariable("BankingAPIConnectionString");
+            Console.WriteLine(MySqlConnection);
+
+            if (String.IsNullOrEmpty(MySqlConnection))
+            {
+                services.AddDbContext<BankingContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
+            }
+
+            services.AddDbContext<BankingContext>(options => options.UseMySql(MySqlConnection));
+            
             services.AddScoped<ICustomerApplicationService, CustomerApplicationService>();
             services.AddScoped<IBankAccountApplicationService, BankAccountApplicationService>();
             services.AddScoped<ITransactionApplicationService, TransactionApplicationService>();
@@ -64,6 +73,9 @@ namespace TestAPI
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<DbInitializer>();
 
+            var TokenSecret = Environment.GetEnvironmentVariable("BankingAPITokenSecret");
+            Console.WriteLine(TokenSecret);
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = "Jwt";  
@@ -75,7 +87,7 @@ namespace TestAPI
                     ValidateAudience = false,
                     ValidateIssuer = false,                    
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("the secret that needs to be at least 16 characeters long for HmacSha256")), 
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(TokenSecret)), 
                     ValidateLifetime = true, 
                     ClockSkew = TimeSpan.FromMinutes(5) 
                 };
