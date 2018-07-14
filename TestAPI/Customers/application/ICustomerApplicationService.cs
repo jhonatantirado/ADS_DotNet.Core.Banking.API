@@ -16,7 +16,7 @@ namespace Customer.Application
     {
         //int create2(CustomerDto customerDto);
         long create(CustomerDto customerDto);
-        GridDto getAll(int offset, int limit);
+        GridDto getAll(int offset, int limit, string orderBy, string orderDirection);
         CustomerDto getById(long CustomerId);
         void update(CustomerDto customerDto , long CustomerId);
         void deleted(long CustomerId);
