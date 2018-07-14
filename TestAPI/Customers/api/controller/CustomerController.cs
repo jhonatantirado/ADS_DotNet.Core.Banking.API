@@ -43,11 +43,11 @@ namespace Customer.Api
         }
 
         [HttpGet]
-        public IActionResult Get(int offset = Constantes.DefaultPagination.defaultOffset, int limit = Constantes.DefaultPagination.defaultLimit)
+        public IActionResult Get(int offset = Constantes.DefaultPagination.defaultOffset, int limit = Constantes.DefaultPagination.defaultLimit, string orderBy = Constantes.DefaultPagination.orderBy, string orderDirection = Constantes.DefaultPagination.orderDirection)
         {
             try
             {
-                return Ok(_customerApplicationService.getAll(offset, limit));
+                return Ok(_customerApplicationService.getAll(offset, limit, orderBy,  orderDirection ));
             }
             catch (Exception)
             {

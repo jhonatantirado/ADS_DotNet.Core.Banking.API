@@ -14,7 +14,7 @@ namespace BankAccount.Application
         void create(BankAccountDto bankAccountDto);
         void update(BankAccountDto bankAccountDto, long AcccountId);
         void lockAccount(long AcccountId);
-        GridDto getAll(int offset, int limit);
+        GridDto getAll(int offset, int limit, string orderBy, string orderDirection);
         BankAccountDto getById(long AcccountId);
        List<BankAccountDto> getByIdCustomer(long CustomerId);
         BankAccountDto findByAccountNumber(string accountNumber);

@@ -97,9 +97,9 @@ namespace Customer.Application
             _iUnitOfWork.Complete();
         }
 
-        public GridDto getAll(int offset, int limit)
+        public GridDto getAll(int offset, int limit, string orderBy, string orderDirection)
         {
-            List<Customer> customers = _iUnitOfWork.Customers.GetAllWithPaginated(offset, limit, "FirstName", "asc").ToList();
+            List<Customer> customers = _iUnitOfWork.Customers.GetAllWithPaginated(offset, limit, orderBy , orderDirection).ToList();
             GridDto result = new GridDto
             {
                 Content = customers,

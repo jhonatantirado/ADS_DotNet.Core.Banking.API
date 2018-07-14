@@ -23,6 +23,9 @@ namespace Common.constantes
         {
             public const int defaultOffset = 1;
             public const int defaultLimit = 10;
+            public const string orderBy = "Id";
+            public const string orderDirection = "desc";
+
         }
 
     }
